@@ -24,52 +24,63 @@ export const Login: React.FC<LoginProps> = ({ setLoggedIn }) => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState(false);
-    const [inputTextEmail, setInputTextEmail] = useState(false);
-    const [inputTextPassword, setInputTextPassword] = useState(false);
+    const [inputTextEmail, setInputTextEmail] = useState('none');
+    const [inputTextPassword, setInputTextPassword] = useState('none');
     const [spinner, setSpinner] = useState(false);
 
     const login = async () => {
-        setSpinner(true);
-        try {
-            const response = await fetch(`${API_URL}/user/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
-            const data = await response.json();
 
-            if (response.ok) {
-                setLoggedIn(true);
-                //localStorage.setItem('token', data.user.token);
-                localStorage.setItem('userid',data.id);
-                if (data.state === 1) {
-                    localStorage.setItem('megakname','Administrator');
-                    navigate('/admin');
-                } else if (data.state === 2) {
-                    const resName = await fetch(`${API_URL}/hr/name/${data.id}`);
-                    const fullName = await resName.json();
-                    localStorage.setItem('megakname', fullName);
-                    console.log(fullName);
-                    navigate('/list');
+        const regexPassword = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/;
+        const regexEmail = /^\S+@\S+\.\S+$/;
+        if(!regexEmail.test(email) && !regexPassword.test(password)){
+            setInputTextEmail('');
+            setInputTextPassword('');
+        }else if(!regexEmail.test(email)){
+            setInputTextEmail('');
+        }else if(!regexPassword.test(password)){
+            setInputTextPassword('');
+        }else {
+            setSpinner(true);
+            try {
+                const response = await fetch(`${API_URL}/user/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    setLoggedIn(true);
+                    //localStorage.setItem('token', data.user.token);
+                    localStorage.setItem('userid', data.id);
+                    if (data.state === 1) {
+                        localStorage.setItem('megakname', 'Administrator');
+                        navigate('/admin');
+                    } else if (data.state === 2) {
+                        const resName = await fetch(`${API_URL}/hr/name/${data.id}`);
+                        const fullName = await resName.json();
+                        localStorage.setItem('megakname', fullName);
+                        console.log(fullName);
+                        navigate('/list');
+                    } else {
+                        const resName = await fetch(`${API_URL}/student/name/${data.id}`);
+                        const { firstName, lastName, githubUsername } = await resName.json();
+                        localStorage.setItem('megakname', firstName + ' ' + lastName);
+                        localStorage.setItem('gitname', githubUsername);
+                        navigate('/edit');
+                    }
                 } else {
-                    const resName = await fetch(`${API_URL}/student/name/${data.id}`);
-                    const { firstName, lastName, githubUsername } = await resName.json();
-                    localStorage.setItem('megakname', firstName+' '+lastName);
-                    localStorage.setItem('gitname', githubUsername);
-                    navigate('/edit');
+                    setError(data.message);
+                    console.log(error);
                 }
-            } else {
-                setError(data.message);
-                console.log(error);
+            } catch (error) {
+                console.error(error);
+                setError('An error occurred during login.');
+            } finally {
+                setSpinner(false);
             }
-        } catch (error) {
-            console.error(error);
-            setError('An error occurred during login.');
-        }
-        finally {
-            setSpinner(false);
         }
     };
 
@@ -81,13 +92,10 @@ export const Login: React.FC<LoginProps> = ({ setLoggedIn }) => {
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
-        setInputTextEmail(/^\S+@\S+\.\S+$/.test(event.target.value));
     };
 
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
-        setInputTextPassword(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/.test(event.target.value));
-
     };
     const handlePasswordVisibility = () => {
         setShowPassword(!showPassword);
