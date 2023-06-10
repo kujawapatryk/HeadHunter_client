@@ -8,6 +8,7 @@ import { ChangeDataUser } from './components/ChangeDataUser/ChangeDataUser';
 import { Login } from './components/Login/Login';
 import { SendStudentsData } from './components/SendStudentsData/SendStudentsData';
 import { TestToken } from './components/TestToken/TestToken';
+import { UserChange } from './components/UserChange/UserChange';
 import { CVEdit } from './views/CVEdit/CVEdit';
 import { CVView } from './views/CVView/CVView';
 import { ListView } from './views/ListView/ListView';
@@ -19,7 +20,9 @@ export const App = () => {
 
     return (
         <>
+            <UserChange />
             <Routes>
+
                 <Route path="/addhr" element={<AddHr />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/send-student" element={<SendStudentsData />} />
