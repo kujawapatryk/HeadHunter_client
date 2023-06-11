@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Grid } from '@mui/material';
+import { Internship, TypeWork } from 'types';
 
 import { Header } from '../../components/Header/Header';
 import { UserCard } from '../../components/UserCard/UserCard';
 import { UserCV } from '../../components/UserCV/UserCV';
+import { month } from '../../components/utils/month';
 import { API_URL } from '../../config/apiUrl';
 
 import './CVView.scss';
@@ -44,11 +46,14 @@ export const CVView = () => {
     useEffect( () => {
         const fetchData = async () => {
             const res = await fetch(`${API_URL}/student/getcv/${studentId}`);
-            const downloadData = (await res.json())[0];
+            const downloadData = (await res.json());
             setData(downloadData);
+            console.log(downloadData);
             const resMail = await fetch(`${API_URL}/user/getemail/${studentId}`);
             const email = (await resMail.json());
             setMail(email);
+            console.log(studentId);
+            console.log(data);
         }
         fetchData()
             .catch(console.error);
@@ -82,12 +87,12 @@ export const CVView = () => {
                             { header: 'Ocena pracy w zespole w Scrum', value: `${data.projectDegree}/5` },
                         ]}
                         expectations={[
-                            { header: 'Preferowane miejsce pracy', value: `${data.expectedTypeWork===1? 'Praca w biurze':'Praca zdalna'}` },
-                            { header: 'Docelowe miasto, gdzie chce pracować kandydat', value: `${data.targetWorkCity}` },
-                            { header: 'Oczekiwany typ kontraktu', value: `${contractType[data.expectedContractType]}` },
+                            { header: 'Preferowane miejsce pracy', value: TypeWork[data.expectedTypeWork] },
+                            { header: 'Docelowe miasto, gdzie chce pracować kandydat', value: data.targetWorkCity },
+                            { header: 'Oczekiwany typ kontraktu', value: contractType[data.expectedContractType] },
                             { header: 'Oczekiwane wynagrodzenie miesięczne netto', value: `${data.expectedSalary} zł` },
-                            { header: 'Zgoda na odbycie bezpłatnych praktyk/stażu na początek', value: `${data.canTakeApprenticeship===1 ? 'Tak' : 'Nie'}` },
-                            { header: 'Komercyjne doświadczenie w programowaniu', value: `${data.monthsOfCommercialExp} miesięcy` },
+                            { header: 'Zgoda na odbycie bezpłatnych praktyk/stażu na początek', value: Internship[data.canTakeApprenticeship] },
+                            { header: 'Komercyjne doświadczenie w programowaniu', value: month(data.monthsOfCommercialExp) },
                         ]}
                         education={data.education}
                         courses={data.courses}
