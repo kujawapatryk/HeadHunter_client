@@ -21,6 +21,7 @@ import { FilterCon } from 'types';
 
 import { FilterContext } from '../../../contexts/filter.context';
 import { initialStateFilter } from '../../utils/initialState.filter';
+import { month } from '../../utils/month';
 
 import './FilterWindow.scss';
 
@@ -54,16 +55,7 @@ export const FilterWindow = (props:any) => {
     };
 
     const monthList: string[] = Array.from({ length: 31 }, (_, i) => {
-        const month: string = i  + ' ' + months[2];
-        if (i === 1) {
-            return month.replace(months[2], months[0]);
-        } else if(i>=12 && i<=16){
-            return month;
-        }else if ( i === 1 || i === 2 || i === 3 || i % 10 === 2 || i % 10 === 3 || i % 10 === 4) {
-            return month.replace(months[2], months[1]);
-        } else {
-            return month;
-        }
+        return month(i);
     });
 
     const clear = () =>{
