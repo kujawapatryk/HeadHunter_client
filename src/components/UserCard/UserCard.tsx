@@ -4,6 +4,7 @@ import { GiPhone } from 'react-icons/gi';
 import { GrMail } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
+import { UpdateAction } from 'types';
 
 import logo from '../../assets/images/avatar-holder.png';
 import { API_URL } from '../../config/apiUrl';
@@ -31,7 +32,7 @@ export const UserCard = ({ id, name, github, phoneNumber, email, aboutMe }: Prop
         }
     }
 
-    const changeStatus = async (studentId:string, action:string) =>{
+    const changeStatus = async (studentId:string, action:number) =>{
         setSpinner(true);
         try {
             const res = await fetch(`${API_URL}/student/status`, {
@@ -81,8 +82,8 @@ export const UserCard = ({ id, name, github, phoneNumber, email, aboutMe }: Prop
             <div className="Usercard__buttons">
                 <CircularProgress
                     style={{ display: spinner ? '' : 'none' }}/>
-                <Button value="Brak zainteresowania"   onClick={()=>changeStatus(id,'disinterest')}/>
-                <Button value="Zatrudniony"  onClick={()=>changeStatus(id,'employ')} />
+                <Button value="Brak zainteresowania"   onClick={()=>changeStatus(id,UpdateAction.disinterest)}/>
+                <Button value="Zatrudniony"  onClick={()=>changeStatus(id,UpdateAction.employ)} />
             </div>
         </div>
     );

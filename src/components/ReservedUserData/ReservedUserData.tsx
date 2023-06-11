@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
-import { ReservedStudent, StudentProps } from 'types';
+import { ReservedStudent, StudentProps, UpdateAction } from 'types';
 
 import logo from '../../assets/images/avatar-holder.png';
 import { API_URL } from '../../config/apiUrl';
@@ -24,7 +24,7 @@ export const ReservedUserData = () => {
     const [studentData, setStudentData] = useState<StudentProps[]>([]);
     const { pagination, setPagination } = useContext(PaginationContext);
 
-    const changeStatus = async (studentId: string, index: number, action: string) => {
+    const changeStatus = async (studentId: string, index: number, action: number) => {
         try {
             const res = await fetch(`${API_URL}/student/status`, {
                 method: 'PATCH',
@@ -117,9 +117,9 @@ export const ReservedUserData = () => {
                         <input
                             type="button"
                             value="Brak zainteresowania"
-                            onClick={() => changeStatus(item.id, index, 'disinterest')}
+                            onClick={() => changeStatus(item.id, index, UpdateAction.disinterest)}
                         />
-                        <input type="button" value="Zatrudniony" onClick={() => changeStatus(item.id, index, 'employ')} />
+                        <input type="button" value="Zatrudniony" onClick={() => changeStatus(item.id, index, UpdateAction.employ)} />
                         <IoIosArrowDown
                             size={30}
                             fill="#666666"

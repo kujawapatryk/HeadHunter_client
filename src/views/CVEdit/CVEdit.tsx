@@ -10,6 +10,29 @@ import './CVEdit.scss';
 import '../../index.scss'
 
 export const CVEdit = () => {
+
+    const [spinner, setSpinner] = useState(false);
+    const [info, setInfo] = useState(false);
+    const [form, setForm] = useState({
+        firstName: '',
+        lastName: '',
+        githubUsername: '',
+        phoneNumber: '',
+        expectedTypeWork: 1,
+        targetWorkCity: '',
+        expectedContractType: 1,
+        expectedSalary: '',
+        canTakeApprenticeship: 1,
+        monthsOfCommercialExp: 0,
+        bio: '',
+        education: '',
+        courses: '',
+        workExperience: '',
+        portfolioUrls: '',
+        bonusProjectUrls: '',
+        projectUrls: ''
+    });
+
     const userId = localStorage.getItem('userid');
 
     useEffect( () => {
@@ -69,29 +92,6 @@ export const CVEdit = () => {
             [key]: value,
         }))
     };
-    const [spinner, setSpinner] = useState(false);
-
-    const [info, setInfo] = useState(false);
-
-    const [form, setForm] = useState({
-        firstName: '',
-        lastName: '',
-        githubUsername: '',
-        phoneNumber: '',
-        expectedTypeWork: 1,
-        targetWorkCity: '',
-        expectedContractType: 1,
-        expectedSalary: '',
-        canTakeApprenticeship: 1,
-        monthsOfCommercialExp: 0,
-        bio: '',
-        education: '',
-        courses: '',
-        workExperience: '',
-        portfolioUrls: '',
-        bonusProjectUrls: '',
-        projectUrls: ''
-    });
 
     return (
         <div className="CVEdit__container">

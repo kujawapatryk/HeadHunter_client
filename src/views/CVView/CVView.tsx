@@ -44,11 +44,14 @@ export const CVView = () => {
     useEffect( () => {
         const fetchData = async () => {
             const res = await fetch(`${API_URL}/student/getcv/${studentId}`);
-            const downloadData = (await res.json())[0];
+            const downloadData = (await res.json());
             setData(downloadData);
+            console.log(downloadData);
             const resMail = await fetch(`${API_URL}/user/getemail/${studentId}`);
             const email = (await resMail.json());
             setMail(email);
+            console.log(studentId);
+            console.log(data);
         }
         fetchData()
             .catch(console.error);
