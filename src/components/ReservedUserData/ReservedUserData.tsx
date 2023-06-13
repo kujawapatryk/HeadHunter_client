@@ -7,6 +7,7 @@ import logo from '../../assets/images/avatar-holder.png';
 import { API_URL } from '../../config/apiUrl';
 import { FilterContext } from '../../contexts/filter.context';
 import { PaginationContext } from '../../contexts/pagination.context';
+import { Button } from '../Button/Button';
 import { UserDataFragment } from '../UserData/UserDataFragment/UserDataFragment';
 import { filterQuery } from '../utils/filterQuery';
 import { fragmentValues } from '../utils/fragmentValues';
@@ -109,21 +110,13 @@ export const ReservedUserData = () => {
                     </div>
                     <h4>{item.name}</h4>
                     <div className="input-container">
-                        <input
-                            type="button"
-                            value="Pokaż CV"
-                            onClick={() => showCv(item.id)}
-                        />
-                        <input
-                            type="button"
-                            value="Brak zainteresowania"
-                            onClick={() => changeStatus(item.id, index, UpdateAction.disinterest)}
-                        />
-                        <input type="button" value="Zatrudniony" onClick={() => changeStatus(item.id, index, UpdateAction.employ)} />
+                        <Button value="Pokaż CV" onClick={() => showCv(item.id)} />
+                        <Button value="Brak zainteresowania" onClick={() => changeStatus(item.id, index, UpdateAction.disinterest)} />
+                        <Button value="Zatrudniony" onClick={() => changeStatus(item.id, index, UpdateAction.employ)} />
                         <IoIosArrowDown
                             size={30}
                             fill="#666666"
-                            className={`${item.open && 'user-data__nav__svg--rotate'}`}
+                            className={`${item.open ? 'user-data__nav__svg--rotate' : 'user-data__nav__svg'}`}
                             onClick={() => {
                                 isOpen(index);
                             }}
