@@ -36,29 +36,23 @@ export const CVEdit = () => {
     const userId = localStorage.getItem('userid');
 
     useEffect( () => {
-        const fetchData = async () => {
+        (async () => {
             const res = await fetch(`${API_URL}/student/getcvedit/${userId}`);
-            const data = (await res.json())[0];
-            for (const [key, value] of Object.entries(data)) {
-                if (value !== null){
-                    updateForm(key, value);
-                }
-            }
-        }
-        fetchData()
-            .catch(console.error);
+            const data = (await res.json());
+            setForm(data);
+        })();
     }, []);
 
     const sendForm = async (e: SyntheticEvent) => {
         setSpinner(true);
         e.preventDefault();
-        let validproject = false;
+        let projectValidation = false;
         form.projectUrls.split(' ').forEach(el => {
             if (!/^(ftp|http|https):\/\/[^ "]+$/.test(el)) {
-                validproject = true;
+                projectValidation = true;
             }
         });
-        if ((form.firstName==='')||(form.lastName==='')||(form.githubUsername==='')||(form.projectUrls==='')||validproject){
+        if ((form.firstName==='')||(form.lastName==='')||(form.githubUsername==='')||(form.projectUrls==='')||projectValidation){
             setInfo(true);
         } else {
             setInfo(false);
@@ -86,7 +80,7 @@ export const CVEdit = () => {
         }
     };
 
-    const updateForm = (key: string, value: unknown) => {
+    const updateForm = (key: string, value: string) => {
         setForm(form => ({
             ...form,
             [key]: value,

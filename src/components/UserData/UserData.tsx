@@ -5,6 +5,7 @@ import { ReservedStudent, StudentProps, UpdateAction } from 'types';
 import { API_URL } from '../../config/apiUrl';
 import { FilterContext } from '../../contexts/filter.context';
 import { PaginationContext } from '../../contexts/pagination.context';
+import { Button } from '../Button/Button';
 import { filterQuery } from '../utils/filterQuery';
 import { fragmentValues } from '../utils/fragmentValues';
 
@@ -85,11 +86,12 @@ export const UserData = () => {
                 <div className="user-data__nav">
                     <h4>{item.name}</h4>
                     <div className="input-container">
-                        <input type="button" value="Zarezerwuj rozmowę" onClick={() => changeStatus(item.id, index)} />
+                        <Button value="Zarezerwuj rozmowę" onClick={() => changeStatus(item.id, index)} />
+                        {/*<input type="button" className='Button__input' value="Zarezerwuj rozmowę" onClick={() => changeStatus(item.id, index)} />*/}
                         <IoIosArrowDown
                             size={30}
                             fill="#666666"
-                            className={`${item.open && 'user-data__nav__svg--rotate'}`}
+                            className={`${item.open ? 'user-data__nav__svg--rotate' : 'user-data__nav__svg'}`}
                             onClick={() => {
                                 isOpen(index);
                             }}

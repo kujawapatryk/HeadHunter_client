@@ -47,7 +47,12 @@
 
     .user-data__nav__svg--rotate {
       transform: rotate(180deg);
+      cursor: pointer;
     }
+    .user-data__nav__svg{
+      cursor: pointer;
+    }
+
   }
 }
 
