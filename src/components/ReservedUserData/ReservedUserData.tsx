@@ -63,10 +63,10 @@ export const ReservedUserData = () => {
     };
 
     useEffect(() => {
-        const filtersParams = new URLSearchParams(filterQuery(filterCon,pagination));
+        const filtersParams = new URLSearchParams(filterQuery(filterCon,pagination,'reserved'));
 
         (async () => {
-            const res = await fetch(`${API_URL}/student/reserved?${filtersParams}`, {
+            const res = await fetch(`${API_URL}/student/students?${filtersParams}`, {
                 method: 'GET',
             });
             const { data, allRecords }: StudentResults = await res.json();

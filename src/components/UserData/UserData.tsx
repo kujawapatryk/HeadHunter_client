@@ -60,14 +60,13 @@ export const UserData = () => {
     };
 
     useEffect(() => {
-        const filtersParams = new URLSearchParams(filterQuery(filterCon,pagination));
+        const filtersParams = new URLSearchParams(filterQuery(filterCon,pagination,'all'));
 
         (async () => {
-            const res = await fetch(`${API_URL}/student/all?${filtersParams}`, {
+            const res = await fetch(`${API_URL}/student/students?${filtersParams}`, {
                 method: 'GET',
             });
             const { data,allRecords }: StudentResults = await res.json();
-
             const student = fragmentValues(data);
             setStudentData(student);
 

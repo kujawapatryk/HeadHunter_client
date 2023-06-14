@@ -20,6 +20,7 @@ import {
 import { FilterCon } from 'types';
 
 import { FilterContext } from '../../../contexts/filter.context';
+import { PaginationContext } from '../../../contexts/pagination.context';
 import { initialStateFilter } from '../../utils/initialState.filter';
 import { month } from '../../utils/month';
 
@@ -33,9 +34,9 @@ export const FilterWindow = (props:any) => {
 
     const { filterCon,setFilterCon } = useContext(FilterContext)
     const [filters, setFilters] = useState<FilterState>(filterCon);
+    const { pagination, setPagination } = useContext(PaginationContext);
 
     const title= [['Ocena przejścia kursu','courseCompletion'],['Ocena aktywności i zaangażowania na kursie','courseEngagement'], ['Ocena kodu w projekcie własnym','projectDegree'], ['Ocena pracy w zespole w Scrum','teamProjectDegree']];
-    const months: string[] = ['miesiąc', 'miesiące', 'miesięcy'];
 
     const filtersChange = ( stateName: string,  substateName:string ,value?: string | number | undefined| null| boolean) => {
         if (substateName !== '') {
@@ -65,6 +66,10 @@ export const FilterWindow = (props:any) => {
 
     const lookState = ()=>{
         setFilterCon(filters);
+        setPagination({
+            ...pagination,
+            page: 0,
+        })
         props.handleClose();
     }
 
