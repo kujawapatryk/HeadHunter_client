@@ -1,6 +1,6 @@
 import { FilterCon, Pagination } from 'types';
 
-export const filterQuery = (data:FilterCon,pagination:Pagination):URLSearchParams =>{
+export const filterQuery = (data:FilterCon,pagination:Pagination,action:string):URLSearchParams =>{
 
     const hrId:string|null = localStorage.getItem('userid');
     data.expectedSalary.min = data.expectedSalary.min === '' ? '0' : data.expectedSalary.min;
@@ -15,6 +15,7 @@ export const filterQuery = (data:FilterCon,pagination:Pagination):URLSearchParam
         page: pagination.page,
         rowsPerPage: pagination.rowsPerPage,
         hrId,
+        action,
     }
     const convertedFilter: Record<string, string> = Object.fromEntries(
         Object.entries(filter).map(([key, value]) => [key, String(value)])
