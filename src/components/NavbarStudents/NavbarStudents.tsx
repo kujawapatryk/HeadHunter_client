@@ -1,9 +1,12 @@
-import React, { KeyboardEvent,useState } from 'react';
+import React, { KeyboardEvent, useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import { PaginationContext } from '../../contexts/pagination.context';
 
 import './NavbarStudents.scss'
 
 export const NavbarStudents = () => {
+    const { pagination, setPagination } = useContext(PaginationContext);
     const location = useLocation();
     let initial = 'allStudents';
     if(location.pathname === '/list/reserved') {
@@ -16,8 +19,16 @@ export const NavbarStudents = () => {
     const handleClick = (category: string) => {
         setActiveCategory(category);
         if (category === 'allStudents') {
+            setPagination({
+                ...pagination,
+                page: 0,
+            })
             navigate('/list'); // Przekierowanie na /list
         } else if (category === 'forInterview') {
+            setPagination({
+                ...pagination,
+                page: 0,
+            })
             navigate('/list/reserved'); // Przekierowanie na /list/reserved
         }
     };
