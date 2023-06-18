@@ -6,8 +6,10 @@ import { API_URL } from '../../config/apiUrl';
 import { FilterContext } from '../../contexts/filter.context';
 import { PaginationContext } from '../../contexts/pagination.context';
 import { Button } from '../Button/Button';
+import { ValidationError } from '../utils/error';
 import { filterQuery } from '../utils/filterQuery';
 import { fragmentValues } from '../utils/fragmentValues';
+import { Snackbar } from '../utils/snackbar';
 
 import { UserDataFragment } from './UserDataFragment/UserDataFragment';
 
@@ -35,8 +37,9 @@ export const UserData = () => {
                     hrId,
                 }),
             });
-            const data = await res.json();
-            console.log(data.message);
+            if(await ValidationError(res))  return;
+            await Snackbar(res);
+
         } finally {
             setStudentData((studentData) => {
                 return studentData.filter((_, i) => i !== index);
