@@ -3,6 +3,9 @@ import { Button, CircularProgress, Container, Grid, TextField } from '@mui/mater
 
 import logo from '../../assets/images/logo.png';
 import { API_URL } from '../../config/apiUrl';
+import { ValidationError } from '../utils/error';
+import { messages } from '../utils/messages';
+import { Snackbar } from '../utils/snackbar';
 
 import '../../index.scss';
 import './AddHr.scss';
@@ -61,13 +64,11 @@ export const AddHr = () => {
                     }
 
                 );
-                const data = await res.json();
-                if (data.success) {
-                    setForm(emptyForm);
-                    console.log(data.message);
-                }
-            } catch (e) {
-                console.log('Coś poszło nie tak. Spróbuj później.');
+
+                if(await ValidationError(res))  return;
+                await Snackbar(res);
+                setForm(emptyForm);
+
             } finally {
                 setSpinner(false);
             }
@@ -83,7 +84,7 @@ export const AddHr = () => {
                         <img src={logo} alt="Logo" className="logo" />
                         <Grid>
                             <p className="info-validation" style={{ display: validForm.email ? '' : 'none' }}>
-                                  Podaj prawidłowy adres e-mail
+                                {messages.invalidEmail.message}
                             </p>
                             <TextField
                                 type="email"
@@ -99,7 +100,7 @@ export const AddHr = () => {
                         </Grid>
                         <Grid>
                             <p className="info-validation" style={{ display: validForm.name ? '' : 'none' }}>
-                                Podaj imię i nazwisko HR
+                                {messages.nameRequired.message}
                             </p>
                             <TextField
                                 type="text"
@@ -115,7 +116,7 @@ export const AddHr = () => {
                         </Grid>
                         <Grid>
                             <p className="info-validation" style={{ display: validForm.company ? '' : 'none' }}>
-                                 Podaj nazwę firmy HR
+                                {messages.organizationNameRequired.message}
                             </p>
                             <TextField
                                 type="text"
@@ -131,7 +132,7 @@ export const AddHr = () => {
                         </Grid>
                         <Grid>
                             <p className="info-validation" style={{ display: validForm.maxStudent ? '' : 'none' }}>
-                                Podaj liczbę między 1-999
+                                {messages.hrLimit.message}
                             </p>
                             <TextField
                                 type="number"
