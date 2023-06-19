@@ -9,8 +9,7 @@ import { UpdateAction } from 'types';
 import logo from '../../assets/images/avatar-holder.png';
 import { API_URL } from '../../config/apiUrl';
 import { Button } from '../Button/Button';
-import { ValidationError } from '../utils/error';
-import { Snackbar } from '../utils/snackbar';
+import { messageHandling } from '../utils/messageHandling';
 
 import './UserCard.scss';
 
@@ -48,8 +47,7 @@ export const UserCard = ({ id, name, github, phoneNumber, email, aboutMe }: Prop
                     hrId
                 }),
             });
-            if(await ValidationError(res))  return;
-            await Snackbar(res);
+            if(!await messageHandling(res))  return;
 
             navigate('../list/reserved');
         } catch (err){

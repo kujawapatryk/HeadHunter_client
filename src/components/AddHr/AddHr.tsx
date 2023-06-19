@@ -3,9 +3,8 @@ import { Button, CircularProgress, Container, Grid, TextField } from '@mui/mater
 
 import logo from '../../assets/images/logo.png';
 import { API_URL } from '../../config/apiUrl';
-import { ValidationError } from '../utils/error';
+import { messageHandling } from '../utils/messageHandling';
 import { messages } from '../utils/messages';
-import { Snackbar } from '../utils/snackbar';
 
 import '../../index.scss';
 import './AddHr.scss';
@@ -54,19 +53,17 @@ export const AddHr = () => {
             Number(form.maxReservedStudents) < 1000
         ) {
             try {
-                const res = await fetch(
-                    `${API_URL}/manage/add-hr/`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(form),
-                    }
+                const res = await fetch(`${API_URL}/manage/add-hr/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(form),
+                }
 
                 );
 
-                if(await ValidationError(res))  return;
-                await Snackbar(res);
+                if(!await messageHandling(res))  return;
                 setForm(emptyForm);
 
             } finally {

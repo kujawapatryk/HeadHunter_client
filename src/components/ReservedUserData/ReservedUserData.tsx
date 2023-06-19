@@ -9,10 +9,9 @@ import { FilterContext } from '../../contexts/filter.context';
 import { PaginationContext } from '../../contexts/pagination.context';
 import { Button } from '../Button/Button';
 import { UserDataFragment } from '../UserData/UserDataFragment/UserDataFragment';
-import { ValidationError } from '../utils/error';
 import { filterQuery } from '../utils/filterQuery';
 import { fragmentValues } from '../utils/fragmentValues';
-import { Snackbar } from '../utils/snackbar';
+import { messageHandling } from '../utils/messageHandling';
 
 import './ReservedUserData.scss';
 
@@ -40,8 +39,8 @@ export const ReservedUserData = () => {
                     hrId,
                 }),
             });
-            if(await ValidationError(res))  return;
-            await Snackbar(res);
+            if(!await messageHandling(res))  return;
+
         } finally {
             setStudentData((studentData) => {
                 return studentData.filter((_, i) => i !== index);
