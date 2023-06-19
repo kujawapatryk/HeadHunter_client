@@ -9,6 +9,8 @@ import { UpdateAction } from 'types';
 import logo from '../../assets/images/avatar-holder.png';
 import { API_URL } from '../../config/apiUrl';
 import { Button } from '../Button/Button';
+import { ValidationError } from '../utils/error';
+import { Snackbar } from '../utils/snackbar';
 
 import './UserCard.scss';
 
@@ -46,12 +48,15 @@ export const UserCard = ({ id, name, github, phoneNumber, email, aboutMe }: Prop
                     hrId
                 }),
             });
-            const data = await res.json();
-            console.log(data.message);
+            if(await ValidationError(res))  return;
+            await Snackbar(res);
+
             navigate('../list/reserved');
+        } catch (err){
+            console.log(err)
         } finally {
             setSpinner(false);
-            // zmiana state
+
         }
     }
 

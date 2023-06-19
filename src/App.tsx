@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
 
 import { AddHr } from './components/AddHr/AddHr';
 import { Admin } from './components/Admin/Admin';
@@ -21,22 +22,25 @@ export const App = () => {
     return (
         <>
             <UserChange />
-            <Routes>
+            <SnackbarProvider maxSnack={5}>
+                <Routes>
 
-                <Route path="/addhr" element={<AddHr />} />
-                <Route path="/admin" element={<Admin />} />
-                <Route path="/send-student" element={<SendStudentsData />} />
-                <Route path="/cv/:studentId" element={<CVView />} />
-                <Route path="/log/:token" element={<TestToken />} />
-                <Route path="/change-data-user" element={<ChangeDataUser />} />
-                <Route>
-                    <Route path="/" element={<Login setLoggedIn={setLoggedIn} />} />
-                </Route>
-                <Route path="/" element={<AuthWrapper isLoggedIn={isLoggedIn} />}>
-                    <Route path="/list/*" element={<ListView />} />
-                    <Route path="/edit" element={<CVEdit />} />
-                </Route>
-            </Routes>
+                    <Route path="/addhr" element={<AddHr />} />
+                    <Route path="/admin" element={<Admin />} />
+                    <Route path="/send-student" element={<SendStudentsData />} />
+                    <Route path="/cv/:studentId" element={<CVView />} />
+                    <Route path="/log/:token" element={<TestToken />} />
+                    <Route path="/change-data-user" element={<ChangeDataUser />} />
+                    <Route>
+                        <Route path="/" element={<Login setLoggedIn={setLoggedIn} />} />
+                    </Route>
+                    <Route path="/" element={<AuthWrapper isLoggedIn={isLoggedIn} />}>
+                        <Route path="/list/*" element={<ListView />} />
+                        <Route path="/edit" element={<CVEdit />} />
+                    </Route>
+
+                </Routes>
+            </SnackbarProvider>
         </>
     );
 };
