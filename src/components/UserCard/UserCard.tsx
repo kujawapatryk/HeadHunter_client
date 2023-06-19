@@ -7,9 +7,8 @@ import { CircularProgress } from '@mui/material';
 import { UpdateAction } from 'types';
 
 import logo from '../../assets/images/avatar-holder.png';
-import { API_URL } from '../../config/apiUrl';
 import { Button } from '../Button/Button';
-import { messageHandling } from '../utils/messageHandling';
+import { changeStudentStatus } from '../utils/changeStudentStatust';
 
 import './UserCard.scss';
 
@@ -25,7 +24,6 @@ interface Props {
 export const UserCard = ({ id, name, github, phoneNumber, email, aboutMe }: Props) => {
     const [spinner, setSpinner] = useState(false);
     const navigate = useNavigate();
-    const hrId = localStorage.getItem('userid');
     const slicedPhoneNumber = [];
     if (phoneNumber !== null) {
         for (let i = 0; i < phoneNumber.length; i += 3) {
@@ -36,18 +34,7 @@ export const UserCard = ({ id, name, github, phoneNumber, email, aboutMe }: Prop
     const changeStatus = async (studentId:string, action:number) =>{
         setSpinner(true);
         try {
-            const res = await fetch(`${API_URL}/student/status`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    action,
-                    studentId,
-                    hrId
-                }),
-            });
-            if(!await messageHandling(res))  return;
+            await changeStudentStatus(studentId,action)
 
             navigate('../list/reserved');
         } catch (err){
