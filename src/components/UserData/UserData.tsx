@@ -6,9 +6,9 @@ import { API_URL } from '../../config/apiUrl';
 import { FilterContext } from '../../contexts/filter.context';
 import { PaginationContext } from '../../contexts/pagination.context';
 import { Button } from '../Button/Button';
+import { changeStudentStatus } from '../utils/changeStudentStatust';
 import { filterQuery } from '../utils/filterQuery';
 import { fragmentValues } from '../utils/fragmentValues';
-import { messageHandling } from '../utils/messageHandling';
 
 import { UserDataFragment } from './UserDataFragment/UserDataFragment';
 
@@ -21,22 +21,10 @@ export const UserData = () => {
     const [studentData, setStudentData] = useState<StudentProps[]>([]);
     const { pagination, setPagination } = useContext(PaginationContext);
 
-    const hrId = localStorage.getItem('userid');
-
     const changeStatus = async (studentId: string, index: number) => {
         try {
-            const res = await fetch(`${API_URL}/student/status`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    action: UpdateAction.reserve,
-                    studentId,
-                    hrId,
-                }),
-            });
-            if(!await messageHandling(res))  return;
+
+            await changeStudentStatus(studentId,UpdateAction.reserve)
 
         } finally {
             setStudentData((studentData) => {
@@ -87,7 +75,6 @@ export const UserData = () => {
                     <h4>{item.name}</h4>
                     <div className="input-container">
                         <Button value="Zarezerwuj rozmowę" onClick={() => changeStatus(item.id, index)} />
-                        {/*<input type="button" className='Button__input' value="Zarezerwuj rozmowę" onClick={() => changeStatus(item.id, index)} />*/}
                         <IoIosArrowDown
                             size={30}
                             fill="#666666"

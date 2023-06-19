@@ -9,9 +9,9 @@ import { FilterContext } from '../../contexts/filter.context';
 import { PaginationContext } from '../../contexts/pagination.context';
 import { Button } from '../Button/Button';
 import { UserDataFragment } from '../UserData/UserDataFragment/UserDataFragment';
+import { changeStudentStatus } from '../utils/changeStudentStatust';
 import { filterQuery } from '../utils/filterQuery';
 import { fragmentValues } from '../utils/fragmentValues';
-import { messageHandling } from '../utils/messageHandling';
 
 import './ReservedUserData.scss';
 
@@ -28,18 +28,7 @@ export const ReservedUserData = () => {
 
     const changeStatus = async (studentId: string, index: number, action: number) => {
         try {
-            const res = await fetch(`${API_URL}/student/status`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    action,
-                    studentId,
-                    hrId,
-                }),
-            });
-            if(!await messageHandling(res))  return;
+            await changeStudentStatus(studentId,action)
 
         } finally {
             setStudentData((studentData) => {
