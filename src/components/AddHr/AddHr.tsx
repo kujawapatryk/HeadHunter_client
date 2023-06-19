@@ -7,13 +7,15 @@ import { API_URL } from '../../config/apiUrl';
 import '../../index.scss';
 import './AddHr.scss';
 
-export const AddHr: React.FC = () => {
-    const emptyForm = {
-        email: '',
-        fullName: '',
-        company: '',
-        maxReservedStudents: '',
-    };
+const emptyForm = {
+    email: '',
+    fullName: '',
+    company: '',
+    maxReservedStudents: '',
+};
+
+export const AddHr = () => {
+
     const [form, setForm] = useState(emptyForm);
     const [validForm, setValidForm] = useState({
         email: false,
@@ -29,12 +31,6 @@ export const AddHr: React.FC = () => {
             [key]: value,
         }));
 
-        setValidForm({
-            email: !form.email.includes('@'),
-            name: form.fullName === '',
-            company: form.company === '',
-            maxStudent: Number(form.maxReservedStudents) < 1 || Number(form.maxReservedStudents) > 999
-        });
     };
 
     const sendForm = async (e: SyntheticEvent) => {
@@ -56,7 +52,14 @@ export const AddHr: React.FC = () => {
         ) {
             try {
                 const res = await fetch(
-                    `${API_URL}/manage/add-hr/${form.email}/${form.fullName}/${form.company}/${form.maxReservedStudents}'`,
+                    `${API_URL}/manage/add-hr/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(form),
+                    }
+
                 );
                 const data = await res.json();
                 if (data.success) {
@@ -69,6 +72,7 @@ export const AddHr: React.FC = () => {
                 setSpinner(false);
             }
         }
+        setSpinner(false)
     };
 
     return (
@@ -79,7 +83,7 @@ export const AddHr: React.FC = () => {
                         <img src={logo} alt="Logo" className="logo" />
                         <Grid>
                             <p className="info-validation" style={{ display: validForm.email ? '' : 'none' }}>
-                Podaj prawidłowy adres e-mail
+                                  Podaj prawidłowy adres e-mail
                             </p>
                             <TextField
                                 type="email"
@@ -95,7 +99,7 @@ export const AddHr: React.FC = () => {
                         </Grid>
                         <Grid>
                             <p className="info-validation" style={{ display: validForm.name ? '' : 'none' }}>
-                Podaj imię i nazwisko HR
+                                Podaj imię i nazwisko HR
                             </p>
                             <TextField
                                 type="text"
@@ -111,7 +115,7 @@ export const AddHr: React.FC = () => {
                         </Grid>
                         <Grid>
                             <p className="info-validation" style={{ display: validForm.company ? '' : 'none' }}>
-                Podaj nazwę firmy HR
+                                 Podaj nazwę firmy HR
                             </p>
                             <TextField
                                 type="text"
@@ -127,7 +131,7 @@ export const AddHr: React.FC = () => {
                         </Grid>
                         <Grid>
                             <p className="info-validation" style={{ display: validForm.maxStudent ? '' : 'none' }}>
-                Podaj liczbę między 1-999
+                                Podaj liczbę między 1-999
                             </p>
                             <TextField
                                 type="number"
@@ -142,11 +146,8 @@ export const AddHr: React.FC = () => {
                             />
                         </Grid>
                         <Grid>
-                            <CircularProgress
-                                style={{ display: spinner ? '' : 'none' }}/>
-                            <Button className="add-hr-btn" onClick={sendForm}>
-                Zapisz
-                            </Button>
+                            <CircularProgress style={{ display: spinner ? '' : 'none' }}/>
+                            <Button className="add-hr-btn" onClick={sendForm}>Zapisz</Button>
                         </Grid>
                     </Grid>
                 </Grid>
