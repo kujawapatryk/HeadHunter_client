@@ -62,8 +62,8 @@ export const AddHr = () => {
                 }
 
                 );
-
-                if(!await messageHandling(res))  return;
+                const data = await res.json();
+                if(!await messageHandling(data.message,res.status))  return;
                 setForm(emptyForm);
 
             } finally {

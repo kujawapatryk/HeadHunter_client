@@ -15,5 +15,6 @@ export const changeStudentStatus = async (studentId: string, action:number) =>{
             hrId,
         }),
     });
-    if(!await messageHandling(res))  return;
+    const data = await res.json();
+    if(!await messageHandling(data.message,res.status))  return;
 }
