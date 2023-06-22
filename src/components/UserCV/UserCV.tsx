@@ -30,14 +30,14 @@ export const UserCV = ({
             <UserCVFragment header="Oceny">
                 <div className="UserCV__fragment__container">
                     {grades.map(({ header, value }) => {
-                        return <UserDataFragment header={header} value={value} key={header} showStars />;
+                        return <UserDataFragment header={header} value={value} key={header} showStars type={true}/>;
                     })}
                 </div>
             </UserCVFragment>
             <UserCVFragment header="Oczekiwania w stosunku do zatrudnienia">
                 <div className="UserCV__fragment__container">
                     {expectations.map(({ header, value }) => {
-                        return <UserDataFragment header={header} value={value} key={header} />;
+                        return <UserDataFragment header={header} value={value} key={header} type={true} />;
                     })}
                 </div>
             </UserCVFragment>

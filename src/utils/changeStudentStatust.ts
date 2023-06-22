@@ -1,4 +1,4 @@
-import { API_URL } from '../../config/apiUrl';
+import { API_URL } from '../config/apiUrl';
 
 import { messageHandling } from './messageHandling';
 

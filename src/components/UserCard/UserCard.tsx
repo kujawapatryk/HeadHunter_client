@@ -7,8 +7,8 @@ import { CircularProgress } from '@mui/material';
 import { UpdateAction } from 'types';
 
 import logo from '../../assets/images/avatar-holder.png';
+import { changeStudentStatus } from '../../utils/changeStudentStatust';
 import { Button } from '../Button/Button';
-import { changeStudentStatus } from '../utils/changeStudentStatust';
 
 import './UserCard.scss';
 

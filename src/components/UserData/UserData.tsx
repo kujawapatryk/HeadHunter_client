@@ -5,10 +5,10 @@ import { ReservedStudent, StudentProps, UpdateAction } from 'types';
 import { API_URL } from '../../config/apiUrl';
 import { FilterContext } from '../../contexts/filter.context';
 import { PaginationContext } from '../../contexts/pagination.context';
+import { changeStudentStatus } from '../../utils/changeStudentStatust';
+import { filterQuery } from '../../utils/filterQuery';
+import { fragmentValues } from '../../utils/fragmentValues';
 import { Button } from '../Button/Button';
-import { changeStudentStatus } from '../utils/changeStudentStatust';
-import { filterQuery } from '../utils/filterQuery';
-import { fragmentValues } from '../utils/fragmentValues';
 
 import { UserDataFragment } from './UserDataFragment/UserDataFragment';
 

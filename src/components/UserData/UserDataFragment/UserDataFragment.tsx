@@ -6,13 +6,14 @@ interface Props {
   header: string;
   value: string;
   showStars?: boolean;
+  type?: boolean,
 }
-export const UserDataFragment = ({ header, value, showStars = false }: Props) => {
+export const UserDataFragment = ({ header, value, showStars = false, type }: Props) => {
 
     const [valueStart, restOfValue] = value.split('/');
     return (
         <div className="user-data-fragment__container">
-            <h4 className="user-data-fragment__header">{header}</h4>
+            <h4 className={`user-data-fragment__header ${type && 'user-data-fragment__header-cv'}`}>{header}</h4>
             <div>
                 <h4 className="user-data-fragment__value">
                     {value.includes('/') ? (

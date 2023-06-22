@@ -7,11 +7,11 @@ import logo from '../../assets/images/avatar-holder.png';
 import { API_URL } from '../../config/apiUrl';
 import { FilterContext } from '../../contexts/filter.context';
 import { PaginationContext } from '../../contexts/pagination.context';
+import { changeStudentStatus } from '../../utils/changeStudentStatust';
+import { filterQuery } from '../../utils/filterQuery';
+import { fragmentValues } from '../../utils/fragmentValues';
 import { Button } from '../Button/Button';
 import { UserDataFragment } from '../UserData/UserDataFragment/UserDataFragment';
-import { changeStudentStatus } from '../utils/changeStudentStatust';
-import { filterQuery } from '../utils/filterQuery';
-import { fragmentValues } from '../utils/fragmentValues';
 
 import './ReservedUserData.scss';
 

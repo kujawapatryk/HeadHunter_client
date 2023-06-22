@@ -7,9 +7,9 @@ import { Internship, SingleStudent, TypeWork } from 'types';
 import { Header } from '../../components/Header/Header';
 import { UserCard } from '../../components/UserCard/UserCard';
 import { UserCV } from '../../components/UserCV/UserCV';
-import { messageHandling } from '../../components/utils/messageHandling';
-import { month } from '../../components/utils/month';
 import { API_URL } from '../../config/apiUrl';
+import { messageHandling } from '../../utils/messageHandling';
+import { month } from '../../utils/month';
 
 import './CVView.scss';
 import '../../index.scss'
@@ -23,8 +23,10 @@ export const CVView = () => {
     useEffect( () => {
         (async () => {
             const res = await fetch(`${API_URL}/student/getcv/${studentId}/${hrId}`);
-            //  if(!await messageHandling(res))  return;
-            setData(await res.json());
+            const data = await res.json();
+            if(data.message)
+                if(!await messageHandling(data.message,res.status))  return;
+            setData(data);
 
         })();
     }, []);

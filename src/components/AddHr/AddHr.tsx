@@ -3,8 +3,8 @@ import { Button, CircularProgress, Container, Grid, TextField } from '@mui/mater
 
 import logo from '../../assets/images/logo.png';
 import { API_URL } from '../../config/apiUrl';
-import { messageHandling } from '../utils/messageHandling';
-import { messages } from '../utils/messages';
+import { messageHandling } from '../../utils/messageHandling';
+import { messages } from '../../utils/messages';
 
 import '../../index.scss';
 import './AddHr.scss';
