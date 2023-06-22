@@ -25,19 +25,22 @@ export const UserCV = ({
     finalProjects,
     scramProjects,
 }: Props) => {
+
+    const gradesWidth = ['25%','25%','25%','25%'];
+    const expectationWidth = ['16%','15%','16%','16%','17%','16%',]
     return (
         <div className="UserCV__container">
             <UserCVFragment header="Oceny">
                 <div className="UserCV__fragment__container">
-                    {grades.map(({ header, value }) => {
-                        return <UserDataFragment header={header} value={value} key={header} showStars type={true}/>;
+                    {grades.map(({ header, value },index) => {
+                        return <UserDataFragment header={header} value={value} key={header} showStars type={true} width={gradesWidth[index]} />;
                     })}
                 </div>
             </UserCVFragment>
             <UserCVFragment header="Oczekiwania w stosunku do zatrudnienia">
                 <div className="UserCV__fragment__container">
-                    {expectations.map(({ header, value }) => {
-                        return <UserDataFragment header={header} value={value} key={header} type={true} />;
+                    {expectations.map(({ header, value },index) => {
+                        return <UserDataFragment header={header} value={value} key={header} type={true} width={expectationWidth[index]} />;
                     })}
                 </div>
             </UserCVFragment>

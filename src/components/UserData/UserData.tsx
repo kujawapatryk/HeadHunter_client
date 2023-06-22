@@ -66,6 +66,7 @@ export const UserData = () => {
         })();
     }, [pagination.page, filterCon]);
 
+    const dateFragmentWidth = ['8%','10%','8%','8%','10%','10%','10%','12%','12%','12%'];
     return (
         <>
             {studentData &&
@@ -88,7 +89,7 @@ export const UserData = () => {
                 {item.open && (
                     <div className="user-data__fragments">
                         {item.fragmentsValues.map(({ header, value }, id) => {
-                            return <UserDataFragment header={header} value={value} key={id} />;
+                            return <UserDataFragment header={header} value={value} key={id} width={dateFragmentWidth[id]} />;
                         })}
                     </div>
                 )}

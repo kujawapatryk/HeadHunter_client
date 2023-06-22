@@ -25,6 +25,7 @@ export const ReservedUserData = () => {
     const { filterCon } = useContext(FilterContext);
     const [studentData, setStudentData] = useState<StudentProps[]>([]);
     const { pagination, setPagination } = useContext(PaginationContext);
+    const dateFragmentWidth = ['8%','10%','8%','8%','10%','10%','10%','12%','12%','12%'];
 
     const changeStatus = async (studentId: string, index: number, action: number) => {
         try {
@@ -116,7 +117,7 @@ export const ReservedUserData = () => {
                 {item.open && (
                     <div className="user-data__fragments">
                         {item.fragmentsValues.map(({ header, value }, id) => {
-                            return <UserDataFragment header={header} value={value} key={id} />;
+                            return <UserDataFragment header={header} value={value} key={id} width={dateFragmentWidth[id]} />;
                         })}
                     </div>
                 )}
