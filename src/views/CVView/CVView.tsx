@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Grid } from '@mui/material';
 import { Internship, SingleStudent, TypeWork } from 'types';
 
 import { Header } from '../../components/Header/Header';
@@ -38,13 +37,19 @@ export const CVView = () => {
 
                     <Header/>
                     <div className="page__container">
-                        <Grid className="CVView__back"
-                            onClick={() => {
-                                navigate('/list/reserved');
-                            }}>
-                            <IoIosArrowDown size={30} className="CVView__back__svg"/>
-                            <span className="CVView__back__span">Wróć</span>
-                        </Grid>
+                        <button className="CVView__back" onClick={() => {
+                            navigate('/list/reserved');
+                        }}
+
+                        ><IoIosArrowDown size={30} className="CVView__back__svg"                    />
+                            <span className="CVView__back__span">Wróć</span> </button>
+                        {/*<Grid className="CVView__back"*/}
+                        {/*    onClick={() => {*/}
+                        {/*        navigate('/list/reserved');*/}
+                        {/*    }}>*/}
+                        {/*    <IoIosArrowDown size={30} className="CVView__back__svg"/>*/}
+                        {/*    <span className="CVView__back__span">Wróć</span>*/}
+                        {/*</Grid>*/}
                         <div className="CVView__wrapper">
                             <UserCard
                                 id={studentId as string}
@@ -86,6 +91,7 @@ export const CVView = () => {
                                 scramProjects={data.bonusProjectUrls === null ? [] : data.bonusProjectUrls.split(' ')}
                             />
                         </div>
+                        <div className="empty-space"></div>
                     </div>
 
                 </div>
