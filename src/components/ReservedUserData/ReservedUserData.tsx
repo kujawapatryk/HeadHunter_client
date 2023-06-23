@@ -74,12 +74,14 @@ export const ReservedUserData = () => {
         }
     }, [pagination.page, filterCon]);
 
-    const formatDate = (reservationEndDate: string|null|undefined) => {
-        if (reservationEndDate){
-            const to = new Date(reservationEndDate);
-            return `${to.getDate()}.${to.getMonth()+1}.${to.getFullYear()} r.`
-        }
-        return ''
+    const formatDate = (reservationEndDate: string) => {
+
+        const date = new Date(reservationEndDate)
+        return  date.toLocaleDateString('pl-PL', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+        });
     }
 
     const showCv = (id:string) => {
@@ -96,7 +98,7 @@ export const ReservedUserData = () => {
                         <div className='date-and-img'>
                             <div className="reservation-date">
                                 <p>Rezerwacja do: </p>
-                                <p className='date'>{formatDate(item.reservationExpiresOn)}</p>
+                                <p className='date'>{formatDate(item.reservationExpiresOn as string)}</p>
                             </div>
                             <img src={item.githubUsername ? `https://github.com/${item.githubUsername}.png` : logo} alt="user logo" />
                         </div>
