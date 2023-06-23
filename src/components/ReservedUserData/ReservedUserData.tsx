@@ -92,14 +92,18 @@ export const ReservedUserData = () => {
         studentData.map((item, index) => (
             <div className="reserved-user-data__container" key={index}>
                 <div className="reserved-user-data__nav">
-                    <div className='date-and-img'>
-                        <div className="reservation-date">
-                            <p>Rezerwacja do: </p>
-                            <p className='bold'>{formatDate(item.reservationExpiresOn)}</p>
+                    <div className="user-container">
+                        <div className='date-and-img'>
+                            <div className="reservation-date">
+                                <p>Rezerwacja do: </p>
+                                <p className='date'>{formatDate(item.reservationExpiresOn)}</p>
+                            </div>
+                            <img src={item.githubUsername ? `https://github.com/${item.githubUsername}.png` : logo} alt="user logo" />
                         </div>
-                        <img src={item.githubUsername ? `https://github.com/${item.githubUsername}.png` : logo} alt="user logo" />
+                        <div className="test2">
+                            <h4>{item.name}</h4>
+                        </div>
                     </div>
-                    <h4>{item.name}</h4>
                     <div className="input-container">
                         <Button value="Pokaż CV" onClick={() => showCv(item.id)} />
                         <Button value="Brak zainteresowania" onClick={() => changeStatus(item.id, index, UpdateAction.disinterest)} />

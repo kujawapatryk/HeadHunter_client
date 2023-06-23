@@ -6,7 +6,7 @@
 
 
 .reserved-user-data__nav {
-
+  @extend .shared-user-data-nav;
 
   .date-and-img{
     display: flex;
@@ -16,19 +16,36 @@
     width: 20rem;
 
     .reservation-date{
-      font-size: $fs-lg;
-
-      .bold {
+      font-size: $fs-sm;
+      margin-left: 2rem;
+      .date {
+        font-size: $fs-lg;
         font-weight: bold;
       }
     }
 
-    img {
+    img{
+      max-height: 4.5rem;
+      max-width: 4.5rem;
+      width: 100%;
       height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
     }
 
   }
-  @extend .shared-user-data-nav;
+
+  h4{
+    font-size: $fs-xl;
+    display: inline-block;
+
+  }
+
+.user-container{
+  display: flex;
+  align-items: center;
+}
+
 }
 
 .user-data__fragments {
