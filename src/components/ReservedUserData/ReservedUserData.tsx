@@ -7,11 +7,11 @@ import logo from '../../assets/images/avatar-holder.png';
 import { API_URL } from '../../config/apiUrl';
 import { FilterContext } from '../../contexts/filter.context';
 import { PaginationContext } from '../../contexts/pagination.context';
+import { changeStudentStatus } from '../../utils/changeStudentStatust';
+import { filterQuery } from '../../utils/filterQuery';
+import { fragmentValues } from '../../utils/fragmentValues';
 import { Button } from '../Button/Button';
 import { UserDataFragment } from '../UserData/UserDataFragment/UserDataFragment';
-import { changeStudentStatus } from '../utils/changeStudentStatust';
-import { filterQuery } from '../utils/filterQuery';
-import { fragmentValues } from '../utils/fragmentValues';
 
 import './ReservedUserData.scss';
 
@@ -25,6 +25,7 @@ export const ReservedUserData = () => {
     const { filterCon } = useContext(FilterContext);
     const [studentData, setStudentData] = useState<StudentProps[]>([]);
     const { pagination, setPagination } = useContext(PaginationContext);
+    const dateFragmentWidth = ['8%','10%','8%','8%','10%','10%','10%','12%','12%','12%'];
 
     const changeStatus = async (studentId: string, index: number, action: number) => {
         try {
@@ -73,12 +74,14 @@ export const ReservedUserData = () => {
         }
     }, [pagination.page, filterCon]);
 
-    const formatDate = (reservationEndDate: string|null|undefined) => {
-        if (reservationEndDate){
-            const to = new Date(reservationEndDate);
-            return `${to.getDate()}.${to.getMonth()+1}.${to.getFullYear()} r.`
-        }
-        return ''
+    const formatDate = (reservationEndDate: string) => {
+
+        const date = new Date(reservationEndDate)
+        return  date.toLocaleDateString('pl-PL', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+        });
     }
 
     const showCv = (id:string) => {
@@ -91,14 +94,18 @@ export const ReservedUserData = () => {
         studentData.map((item, index) => (
             <div className="reserved-user-data__container" key={index}>
                 <div className="reserved-user-data__nav">
-                    <div className='date-and-img'>
-                        <div className="reservation-date">
-                            <p>Rezerwacja do: </p>
-                            <p className='bold'>{formatDate(item.reservationExpiresOn)}</p>
+                    <div className="user-container">
+                        <div className='date-and-img'>
+                            <div className="reservation-date">
+                                <p>Rezerwacja do: </p>
+                                <p className='date'>{formatDate(item.reservationExpiresOn as string)}</p>
+                            </div>
+                            <img src={item.githubUsername ? `https://github.com/${item.githubUsername}.png` : logo} alt="user logo" />
                         </div>
-                        <img src={item.githubUsername ? `https://github.com/${item.githubUsername}.png` : logo} alt="user logo" />
+                        <div className="test2">
+                            <h4>{item.name}</h4>
+                        </div>
                     </div>
-                    <h4>{item.name}</h4>
                     <div className="input-container">
                         <Button value="Pokaż CV" onClick={() => showCv(item.id)} />
                         <Button value="Brak zainteresowania" onClick={() => changeStatus(item.id, index, UpdateAction.disinterest)} />
@@ -116,7 +123,7 @@ export const ReservedUserData = () => {
                 {item.open && (
                     <div className="user-data__fragments">
                         {item.fragmentsValues.map(({ header, value }, id) => {
-                            return <UserDataFragment header={header} value={value} key={id} />;
+                            return <UserDataFragment header={header} value={value} key={id} width={dateFragmentWidth[id]} />;
                         })}
                     </div>
                 )}

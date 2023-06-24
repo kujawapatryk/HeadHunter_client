@@ -1,5 +1,7 @@
 import { ContractType, Internship, ReservedStudent, StudentProps, TypeWork } from 'types';
 
+import { month } from './month';
+
 export const fragmentValues = (data:ReservedStudent[]) =>{
     const result  = data.map((item) => (
         {
@@ -16,7 +18,7 @@ export const fragmentValues = (data:ReservedStudent[]) =>{
                     header: 'Zgoda na odbycie bezpłatnych praktyk/stażu na początek',
                     value: Internship[Number(item.canTakeApprenticeship)],
                 },
-                { header: 'Komercyjne doświadczenie w programowaniu', value: item.monthsOfCommercialExp.toString() },
+                { header: 'Komercyjne doświadczenie w programowaniu', value: month(item.monthsOfCommercialExp) },
             ],
             id: item.studentId,
             name: item.firstName + ' ' + item.lastName,

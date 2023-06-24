@@ -7,9 +7,9 @@ import { Pagination } from '../../components/Pagination/Pagination';
 import { ReservedUserData } from '../../components/ReservedUserData/ReservedUserData';
 import { SearchFilterBar } from '../../components/SearchFilterBar/SearchFilterBar';
 import { UserData } from '../../components/UserData/UserData';
-import { initialStateFilter } from '../../components/utils/initialState.filter';
 import { FilterContext } from '../../contexts/filter.context';
 import { PaginationContext } from '../../contexts/pagination.context';
+import { initialStateFilter } from '../../utils/initialState.filter';
 
 import './ListView.scss';
 import '../../index.scss'

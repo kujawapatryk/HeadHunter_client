@@ -17,6 +17,9 @@
     letter-spacing: 0;
     color: $light-arrow;
   }
+  .user-data-fragment__header-cv{
+    font-size: $fs-sm;
+  }
 
   div {
     display: flex;
@@ -24,15 +27,21 @@
 
     .user-data-fragment__value {
       text-align: left;
-      font: normal normal bold 15px/25px Catamaran;
+      font: $primary-font;
+      font-weight: bold;
+      font-size: $fs-md;
       letter-spacing: 1.5px;
       color: $white;
+
 
       .user-data-fragment__value--dark {
         margin-left: 0.3rem;
         color: $mid-dark-arrow;
         font-weight: normal;
       }
+    }
+    .user-data-fragment__value-cv {
+      font-size: $fs-lg;
     }
 
     .user-data-fragment__stars {

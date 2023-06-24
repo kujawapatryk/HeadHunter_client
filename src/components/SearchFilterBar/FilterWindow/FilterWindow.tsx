@@ -21,8 +21,8 @@ import { FilterCon } from 'types';
 
 import { FilterContext } from '../../../contexts/filter.context';
 import { PaginationContext } from '../../../contexts/pagination.context';
-import { initialStateFilter } from '../../utils/initialState.filter';
-import { month } from '../../utils/month';
+import { initialStateFilter } from '../../../utils/initialState.filter';
+import { month } from '../../../utils/month';
 
 import './FilterWindow.scss';
 
