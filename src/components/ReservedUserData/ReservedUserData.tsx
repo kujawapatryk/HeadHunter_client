@@ -10,7 +10,7 @@ import { PaginationContext } from '../../contexts/pagination.context';
 import { changeStudentStatus } from '../../utils/changeStudentStatust';
 import { filterQuery } from '../../utils/filterQuery';
 import { fragmentValues } from '../../utils/fragmentValues';
-import { Button } from '../Button/Button';
+import { Btn } from '../Btn/Btn';
 import { UserDataFragment } from '../UserData/UserDataFragment/UserDataFragment';
 
 import './ReservedUserData.scss';
@@ -107,9 +107,9 @@ export const ReservedUserData = () => {
                         </div>
                     </div>
                     <div className="input-container">
-                        <Button value="Pokaż CV" onClick={() => showCv(item.id)} />
-                        <Button value="Brak zainteresowania" onClick={() => changeStatus(item.id, index, UpdateAction.disinterest)} />
-                        <Button value="Zatrudniony" onClick={() => changeStatus(item.id, index, UpdateAction.employ)} />
+                        <Btn value="Pokaż CV" onClick={() => showCv(item.id)} />
+                        <Btn value="Brak zainteresowania" onClick={() => changeStatus(item.id, index, UpdateAction.disinterest)} />
+                        <Btn value="Zatrudniony" onClick={() => changeStatus(item.id, index, UpdateAction.employ)} />
                         <IoIosArrowDown
                             size={30}
                             fill="#666666"

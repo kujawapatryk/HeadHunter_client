@@ -8,7 +8,7 @@ import { UpdateAction } from 'types';
 
 import logo from '../../assets/images/avatar-holder.png';
 import { changeStudentStatus } from '../../utils/changeStudentStatust';
-import { Button } from '../Button/Button';
+import { Btn } from '../Btn/Btn';
 
 import './UserCard.scss';
 
@@ -72,8 +72,8 @@ export const UserCard = ({ id, name, github, phoneNumber, email, aboutMe }: Prop
             <div className="Usercard__buttons">
                 <CircularProgress
                     style={{ display: spinner ? '' : 'none' }}/>
-                <Button value="Brak zainteresowania"   onClick={()=>changeStatus(id,UpdateAction.disinterest)}/>
-                <Button value="Zatrudniony"  onClick={()=>changeStatus(id,UpdateAction.employ)} />
+                <Btn value="Brak zainteresowania" onClick={()=>changeStatus(id,UpdateAction.disinterest)}/>
+                <Btn value="Zatrudniony" onClick={()=>changeStatus(id,UpdateAction.employ)} />
             </div>
         </div>
     );
