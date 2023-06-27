@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Internship, SingleStudent, TypeWork } from 'types';
 
 import { Header } from '../../components/Header/Header';
@@ -9,12 +9,13 @@ import { UserCV } from '../../components/UserCV/UserCV';
 import { API_URL } from '../../config/apiUrl';
 import { messageHandling } from '../../utils/messageHandling';
 import { month } from '../../utils/month';
+import { navigate } from '../../utils/navigate';
 
 import './CVView.scss';
 import '../../index.scss'
 
 export const CVView = () => {
-    const navigate = useNavigate();
+    //  const navigate = useNavigate();
     const contractType = ['', 'Umowa o pracę', 'B2B', 'Umowa zlecenie', 'Umowa o dzieło'];
     const { studentId } = useParams<string>();
     const [data, setData] = useState<SingleStudent | null>(null);
@@ -24,7 +25,7 @@ export const CVView = () => {
             const res = await fetch(`${API_URL}/student/getcv/${studentId}/${hrId}`);
             const data = await res.json();
             if(data.message)
-                if(!await messageHandling(data.message,res.status))  return;
+                if(!messageHandling(data.message,res.status))  return;
             setData(data);
 
         })();
@@ -37,19 +38,14 @@ export const CVView = () => {
 
                     <Header/>
                     <div className="page__container">
-                        <button className="CVView__back" onClick={() => {
-                            navigate('/list/reserved');
-                        }}
+                        <button
+                            className="CVView__back"
+                            onClick={() => { navigate('/list/reserved') }}
+                        >
+                            <IoIosArrowDown size={30} className="CVView__back__svg" />
+                            <span className="CVView__back__span">Wróć</span>
+                        </button>
 
-                        ><IoIosArrowDown size={30} className="CVView__back__svg"                    />
-                            <span className="CVView__back__span">Wróć</span> </button>
-                        {/*<Grid className="CVView__back"*/}
-                        {/*    onClick={() => {*/}
-                        {/*        navigate('/list/reserved');*/}
-                        {/*    }}>*/}
-                        {/*    <IoIosArrowDown size={30} className="CVView__back__svg"/>*/}
-                        {/*    <span className="CVView__back__span">Wróć</span>*/}
-                        {/*</Grid>*/}
                         <div className="CVView__wrapper">
                             <UserCard
                                 id={studentId as string}
