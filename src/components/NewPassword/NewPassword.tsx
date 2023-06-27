@@ -83,7 +83,7 @@ export const NewPassword = () => {
     return(
         <>
             <div className="page-background-new-password">
-                <Container className="change-user-data-container">
+                <Container className="new-password-container">
                     <Grid container spacing={3}>
                         <Grid item xs={12} className="pass-box">
                             <img src={logo} alt="Logo" className="logo" />
@@ -116,7 +116,7 @@ export const NewPassword = () => {
                             </div>
                             <CircularProgress
                                 style={{ display: spinner ? '' : 'none' }}/>
-                            <Btn value={'Zapisz hasło'} onClick={sendForm}/>
+                            <div className="button"> <Btn value={'Zapisz hasło'} onClick={sendForm}/></div>
                         </Grid>
                     </Grid>
                 </Container>
