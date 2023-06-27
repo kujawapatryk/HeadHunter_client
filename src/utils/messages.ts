@@ -24,5 +24,8 @@ export const messages: Messages = {
     emailExists: { message: 'Taki e-mail już istnieje w systemie.', variant: 'warning' },
     mismatchedPasswords: { message: 'Hasła nie są identyczne.', variant: 'warning' },
     invalidPasswordFormat: { message: 'Hasło musi mieć co najmniej 8 znaków, składać się z dużych i małych liter, cyfr i znaków specjalnych.', variant: 'warning' },
-    unAuthorized: { message: 'Brak dostępu', variant: 'error' },
+    unAuthorized: { message: 'Brak dostępu.', variant: 'error' },
+    emailResetSent: { message: 'Email ze zmianą hasła został wysłany.', variant: 'success' },
+    tokenExpired: { message: 'Nie poprawny token lub stracił ważność.', variant: 'error' },
+    passwordSuccessfullyChanged: { message: 'Poprawnie zmieniono hasło, możesz się teraz zalogować.', variant: 'success' },
 }
