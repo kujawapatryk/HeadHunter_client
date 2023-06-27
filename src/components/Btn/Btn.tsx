@@ -1,10 +1,12 @@
-import './Button.scss';
+import React from 'react';
+
+import './Btn.scss';
 interface Props {
   value: string;
   onClick?: React.MouseEventHandler<HTMLInputElement>;
   isClickable?: boolean;
 }
-export const Button = ({ value, onClick, isClickable = true }: Props) => {
+export const Btn = ({ value, onClick, isClickable = true }: Props) => {
     return (
         <input
             type="button"
