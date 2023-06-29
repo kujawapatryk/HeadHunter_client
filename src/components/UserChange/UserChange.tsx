@@ -39,7 +39,7 @@ export const UserChange = () => {
         localStorage.setItem('userid','b7f1cb85-e54a-11ed-86df-24fd5235b3db');
         localStorage.setItem('megakname', 'Wojciech Wojciechowski');
         localStorage.setItem('gitname', 'kujawapatryk');
-        navigate('/edit');
+        navigate('/user/edit');
     };
 
     const changeToHR = () =>{
