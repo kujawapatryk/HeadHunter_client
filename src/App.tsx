@@ -7,6 +7,8 @@ import { Admin } from './components/Admin/Admin';
 import { AuthWrapper } from './components/Auth/AuthWrapper';
 import { ChangeDataUser } from './components/ChangeDataUser/ChangeDataUser';
 import { Login } from './components/Login/Login';
+import { NewPassword } from './components/NewPassword/NewPassword';
+import { PasswordReminder } from './components/PasswordReminder/PasswordReminder';
 import { SendStudentsData } from './components/SendStudentsData/SendStudentsData';
 import { TestToken } from './components/TestToken/TestToken';
 import { UserChange } from './components/UserChange/UserChange';
@@ -24,7 +26,8 @@ export const App = () => {
             <UserChange />
             <SnackbarProvider maxSnack={5}>
                 <Routes>
-
+                    <Route path="/new-password/:token/:userId" element={<NewPassword />} />
+                    <Route path="/password-reset" element={<PasswordReminder />}/>
                     <Route path="/addhr" element={<AddHr />} />
                     <Route path="/admin" element={<Admin />} />
                     <Route path="/send-student" element={<SendStudentsData />} />

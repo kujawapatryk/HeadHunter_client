@@ -1,13 +1,43 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { Button, CircularProgress, Container, Grid, TextField } from '@mui/material';
 
 import logo from '../../assets/images/logo.png';
+import { API_URL } from '../../config/apiUrl';
+import { messageHandling } from '../../utils/messageHandling';
+import { navigate } from '../../utils/navigate';
+import { snackbar } from '../../utils/snackbar';
 
 import '../../index.scss';
 import './PasswordReminder.scss';
 
 export const PasswordReminder: React.FC = () => {
     const [spinner, setSpinner] = useState(false);
+    const [email,setEmail] = useState('');
+    const regexEmail = /^\S+@\S+\.\S+$/;
+    const changeHandle = (event: ChangeEvent<HTMLInputElement>) =>{
+        setEmail(event.target.value);
+    }
+
+    const sendForm = async () =>{
+        if(!regexEmail.test(email)){
+            snackbar('invalidEmail');
+            return;
+        }
+        setSpinner(true)
+        try{
+            const res = await fetch(`${API_URL}/user/reset/${email}`, {
+                method: 'GET',
+            });
+            const data = await res.json();
+            if(res.status === 200){
+                navigate('/');
+            }
+            messageHandling(data.message,res.status)
+        }finally {
+            setSpinner(false)
+        }
+    }
+
     return (
         <div className="page-background">
             <Container maxWidth="md" className="login-container">
@@ -18,18 +48,21 @@ export const PasswordReminder: React.FC = () => {
                         <p className="infoAboutSendLink">Na podany adres e-mail zostanie przesłany link.</p>
 
                         <TextField
+                            value={email}
                             className="login-email"
                             id="login-email"
                             color="primary"
                             type="email"
                             placeholder="E-mail"
                             variant="outlined"
+                            onChange={changeHandle}
                             fullWidth
                         />
                         <Grid container justifyContent="center">
                             <CircularProgress
                                 style={{ display: spinner ? '' : 'none' }}/>
-                            <Button className="login-btn">
+                            <Button className="login-btn"
+                                onClick={sendForm}>
                                 Zresetuj hasło
                             </Button>
                         </Grid>

@@ -4,6 +4,7 @@ import { Button, CircularProgress, Container, Grid, TextField } from '@mui/mater
 
 import logo from '../../assets/images/logo.png';
 import { API_URL } from '../../config/apiUrl';
+import { regexPassword } from '../../utils/validation/regexPassword';
 
 import '../../index.scss';
 import './ChangeDataUser.scss';
@@ -63,8 +64,7 @@ export const ChangeDataUser: React.FC = () => {
 
     const sendPass = async () => {
         setSpinnerPass(true);
-        const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/;
-        if (!passwordRegex.test(formPass.pass)){
+        if (!regexPassword(formPass.pass)){
             setValidPass(false);
         } else if (formPass.pass!==formPass.pass2){
             setValidPass(true);
@@ -161,7 +161,7 @@ export const ChangeDataUser: React.FC = () => {
                         />
                         <p className="info"
                             style={{ display: validPass ? 'none' : '' }}>
-                            Hasło musi zawierać min. 8 znaków: cyfrę, małą i dużą literę i znak specjalny.</p>
+                            Hasło musi zawierać min. 8 znaków: znak specjalny, cyfrę, małą i dużą literę.</p>
                         <TextField
                             type="password"
                             placeholder="Powtórz hasło"

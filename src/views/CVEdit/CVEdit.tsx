@@ -1,5 +1,4 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react';
-import { IoIosArrowDown } from 'react-icons/io';
 import { Button, CircularProgress, Container, TextField } from '@mui/material';
 
 import logo from '../../assets/images/avatar-holder.png';
@@ -48,7 +47,7 @@ export const CVEdit = () => {
         e.preventDefault();
         let projectValidation = false;
         form.projectUrls.split(' ').forEach(el => {
-            if (!/^(ftp|http|https):\/\/[^ "]+$/.test(el)) {
+            if (!/^(http|https):\/\/[^ "]+$/.test(el)) {
                 projectValidation = true;
             }
         });
@@ -91,10 +90,6 @@ export const CVEdit = () => {
         <div className="CVEdit__container">
             <Header/>
             <div className="CVEdit__wrapper">
-                <div className="CVEdit__back">
-                    <IoIosArrowDown size={30} className="CVEdit__back__svg" />
-                    <span className="CVEdit__back__span">Wróć</span>
-                </div>
                 <Container className="CVEdit_Usercard__container">
                     <div className="CVEdit_Usercard__avatar">
                         <img src={form.githubUsername ? `https://github.com/${form.githubUsername}.png`:logo} alt="user logo" />

@@ -8,7 +8,7 @@ import { PaginationContext } from '../../contexts/pagination.context';
 import { changeStudentStatus } from '../../utils/changeStudentStatust';
 import { filterQuery } from '../../utils/filterQuery';
 import { fragmentValues } from '../../utils/fragmentValues';
-import { Button } from '../Button/Button';
+import { Btn } from '../Btn/Btn';
 
 import { UserDataFragment } from './UserDataFragment/UserDataFragment';
 
@@ -75,7 +75,7 @@ export const UserData = () => {
                 <div className="user-data__nav">
                     <h4>{item.name}</h4>
                     <div className="input-container">
-                        <Button value="Zarezerwuj rozmowę" onClick={() => changeStatus(item.id, index)} />
+                        <Btn value="Zarezerwuj rozmowę" onClick={() => changeStatus(item.id, index)} />
                         <IoIosArrowDown
                             size={30}
                             fill="#666666"
