@@ -5,7 +5,6 @@ import { SnackbarProvider } from 'notistack';
 import { AddHr } from './components/AddHr/AddHr';
 import { Admin } from './components/Admin/Admin';
 import { AuthWrapper } from './components/Auth/AuthWrapper';
-import { ChangeDataUser } from './components/ChangeDataUser/ChangeDataUser';
 import { Login } from './components/Login/Login';
 import { NewPassword } from './components/NewPassword/NewPassword';
 import { PasswordReminder } from './components/PasswordReminder/PasswordReminder';
@@ -15,6 +14,7 @@ import { UserChange } from './components/UserChange/UserChange';
 import { CVEdit } from './views/CVEdit/CVEdit';
 import { CVView } from './views/CVView/CVView';
 import { ListView } from './views/ListView/ListView';
+import { UserView } from './views/UserView/UserView';
 
 import './index.scss';
 
@@ -33,7 +33,7 @@ export const App = () => {
                     <Route path="/send-student" element={<SendStudentsData />} />
                     <Route path="/cv/:studentId" element={<CVView />} />
                     <Route path="/log/:token" element={<TestToken />} />
-                    <Route path="/change-data-user" element={<ChangeDataUser />} />
+                    <Route path="/user/*" element={<UserView />} />
                     <Route>
                         <Route path="/" element={<Login setLoggedIn={setLoggedIn} />} />
                     </Route>
