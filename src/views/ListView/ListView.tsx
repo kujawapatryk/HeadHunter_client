@@ -18,6 +18,8 @@ export const ListView = () => {
 
     const [filterCon,setFilterCon] = useState(initialStateFilter)
     const [pagination,setPagination] = useState({ page: 0, rowsPerPage:10, allRecords:0 });
+    const test:string[][] = [['Dostępni kursanci','/list'],['Do rozmowy','/list/reserved']];
+    // const [data,setData] = useState(test)
 
     return (
         <>
@@ -26,7 +28,7 @@ export const ListView = () => {
                 <FilterContext.Provider value={{ filterCon, setFilterCon }}>
                     <PaginationContext.Provider value={{ pagination, setPagination }}>
                         <div className="main-wrapper">
-                            <NavbarStudents/>
+                            <NavbarStudents data={test} />
                             <SearchFilterBar/>
                             <div className="list-wrapper">
                                 <Routes>
