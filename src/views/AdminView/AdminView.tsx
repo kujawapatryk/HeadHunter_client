@@ -9,7 +9,7 @@ import { NavbarStudents } from '../../components/NavbarStudents/NavbarStudents';
 import { SendStudentsData } from '../../components/SendStudentsData/SendStudentsData';
 
 import '../../index.scss';
-import './Admin.scss';
+import './AdminView.scss';
 
 export const AdminView = () => {
 
@@ -18,11 +18,11 @@ export const AdminView = () => {
     return (
         <>
             <Header/>
-            <div className="page-background__user-view">
+            <div className="page-background__admin-view">
 
-                <div className="main-wrapper__user-view">
+                <div className="main-wrapper__admin-view">
                     <NavbarStudents data={admin} />
-                    <div className="user-view-wrapper">
+                    <div className="admin-view-wrapper">
                         <Routes>
                             <Route path="/add-hr" element={<AddHr />}/>
                             <Route path="/add-students" element={<SendStudentsData />}/>
