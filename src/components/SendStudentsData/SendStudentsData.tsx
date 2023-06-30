@@ -1,7 +1,6 @@
 import React, { SyntheticEvent, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 
-import logo from '../../assets/images/logo.png';
 import { API_URL } from '../../config/apiUrl';
 
 import '../../index.scss';
@@ -31,7 +30,6 @@ export const SendStudentsData = () => {
     }
     return (
         <div className="send-students-data-container">
-            <img src={logo} alt="Logo" className="logo" />
             <form
                 onSubmit={sendForm}
             >
