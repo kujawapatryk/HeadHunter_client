@@ -13,7 +13,7 @@ import './AdminView.scss';
 
 export const AdminView = () => {
 
-    const admin = [['Dodaj HR','/admin/add-hr'],['Dodaj Kursantów','/admin/add-students'],['Zmień hasło','/admin/password'],['Zmień e-mail','/admin/email']];
+    const admin = [['Zatrudnieni studenci','employed'],['Dodaj HR','/admin/add-hr'],['Dodaj Kursantów','/admin/add-students'],['Zmień hasło','/admin/password'],['Zmień e-mail','/admin/email']];
 
     return (
         <>

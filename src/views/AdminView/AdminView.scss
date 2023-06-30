@@ -2,7 +2,7 @@
 
 .page-background__admin-view {
   width: 100vw;
-  height: 100vh;
+  height: 80vh;
   padding: 1rem 0;
   background-color: $primary-dark;
 
@@ -16,7 +16,7 @@
       padding-bottom: 1.7rem;
       display: flex;
       justify-content: center;
-      background-color: $primary-dark;
+      background-color: $header-dark;
     }
   }
 }

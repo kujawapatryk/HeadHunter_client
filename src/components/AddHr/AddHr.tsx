@@ -74,7 +74,7 @@ export const AddHr = () => {
     };
 
     return (
-        <div className="page-background">
+        <div className="page-background__add-hr">
             <Container className="add-hr-container">
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
