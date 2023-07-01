@@ -2,6 +2,6 @@
 @import "../ChangeDataUser";
 
 .container__change-email{
-
+  width: 100%;
   @extend .change-data-user;
 }

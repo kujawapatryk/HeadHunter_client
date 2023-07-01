@@ -45,7 +45,7 @@ export const UserChange = () => {
     };
 
     const changeToHR = () =>{
-        localStorage.setItem('spermission','2');
+        localStorage.setItem('permission','2');
         localStorage.setItem('userid','46f84261-df9d-11ed-a2b7-24fd5235b3db');
         localStorage.setItem('megakname', 'Jacek Malinowski');
         navigate('/list');
