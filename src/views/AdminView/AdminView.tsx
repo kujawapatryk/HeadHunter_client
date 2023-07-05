@@ -1,14 +1,15 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+import { EmployedStudents } from '../../components/ EmployedStudents/EmployedStudents';
 import { AddHr } from '../../components/AddHr/AddHr';
 import { ChangeEmail } from '../../components/ChangeDataUser/ChangeEmail/ChangeEmail';
 import { ChangePassword } from '../../components/ChangeDataUser/ChangePassword/ChangePassword';
 import { Header } from '../../components/Header/Header';
 import { NavbarStudents } from '../../components/NavbarStudents/NavbarStudents';
+import { Pagination } from '../../components/Pagination/Pagination';
 import { SendStudentsData } from '../../components/SendStudentsData/SendStudentsData';
 
-import '../../index.scss';
 import './AdminView.scss';
 
 export const AdminView = () => {
@@ -19,11 +20,11 @@ export const AdminView = () => {
         <>
             <Header/>
             <div className="page-background__admin-view">
-
                 <div className="main-wrapper__admin-view">
                     <NavbarStudents data={admin} />
                     <div className="admin-view-wrapper">
                         <Routes>
+                            <Route path="/employed" element={<EmployedStudents />}/>
                             <Route path="/add-hr" element={<AddHr />}/>
                             <Route path="/add-students" element={<SendStudentsData />}/>
                             <Route path="/password" element={<ChangePassword />}/>
@@ -31,6 +32,7 @@ export const AdminView = () => {
                         </Routes>
                     </div>
                 </div>
+                <Pagination/>
             </div>
         </>
     );

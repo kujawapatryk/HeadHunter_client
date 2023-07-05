@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CircularProgress, Grid, TextField } from '@mui/material';
+import { CircularProgress, Container, Grid, TextField } from '@mui/material';
 
 import { API_URL } from '../../../config/apiUrl';
 import { messages } from '../../../utils/messages';
@@ -59,36 +59,41 @@ export const ChangePassword = () =>{
     }
 
     return (
-        <Grid item xs={12} className="container__change-password">
-            <p className="info">Zmień hasło</p>
-            <TextField
-                className="form-input"
-                type="password"
-                placeholder="Podaj hasło"
-                value={form.password}
-                onChange={e => setForm({ ...form, password: e.target.value })}
-                variant="outlined"
-                fullWidth
-            />
-            <p className="info"
-                style={{ display: validPass ? 'none' : '' }}>
-                {messages.invalidPasswordFormat.message}
-            </p>
-            <TextField
-                className="form-input"
-                type="password"
-                placeholder="Powtórz hasło"
-                value={form.confirmedPassword}
-                onChange={e => setForm({ ...form, confirmedPassword: e.target.value })}
-                variant="outlined"
-                fullWidth
-            />
-            <p className="info"
-                style={{ display: validPass2 ? 'none' : '' }}>{messages.mismatchedPasswords.message}</p>
-            <CircularProgress
-                style={{ display: spinner ? '' : 'none' }}/>
-            <div className="button"><Btn value={'Zapisz hasło'} onClick={sendForm} /></div>
+        <Container className="container__change-password">
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
 
-        </Grid>
+                    <p className="info">Zmień hasło</p>
+                    <TextField
+                        className="form-input"
+                        type="password"
+                        placeholder="Podaj hasło"
+                        value={form.password}
+                        onChange={e => setForm({ ...form, password: e.target.value })}
+                        variant="outlined"
+                        fullWidth
+                    />
+                    <p className="info"
+                        style={{ display: validPass ? 'none' : '' }}>
+                        {messages.invalidPasswordFormat.message}
+                    </p>
+                    <TextField
+                        className="form-input"
+                        type="password"
+                        placeholder="Powtórz hasło"
+                        value={form.confirmedPassword}
+                        onChange={e => setForm({ ...form, confirmedPassword: e.target.value })}
+                        variant="outlined"
+                        fullWidth
+                    />
+                    <p className="info"
+                        style={{ display: validPass2 ? 'none' : '' }}>{messages.mismatchedPasswords.message}</p>
+                    <CircularProgress
+                        style={{ display: spinner ? '' : 'none' }}/>
+                    <div className="button"><Btn value={'Zapisz hasło'} onClick={sendForm} /></div>
+
+                </Grid>
+            </Grid>
+        </Container>
     )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CircularProgress, Grid, TextField } from '@mui/material';
+import { CircularProgress, Container, Grid, TextField } from '@mui/material';
 
 import { API_URL } from '../../../config/apiUrl';
 import { messages } from '../../../utils/messages';
@@ -49,23 +49,29 @@ export const ChangeEmail = () => {
     }
     
     return(
-        <Grid item xs={12} className="container__change-email">
-            <p className="info">Zmień adres e-mail</p>
-            <TextField
-                className="form-input"
-                type="email"
-                placeholder="E-mail"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                variant="outlined"
-                fullWidth
-            />
-            <p className="info"
-                style={{ display: validMail ? '' : 'none' }}>{messages.invalidEmail.message}</p>
-            <CircularProgress
-                style={{ display: spinner ? '' : 'none' }}/>
-            <div className="button"><Btn value={'Zapisz e-mail'} onClick={sendForm} /></div>
+        <>
+            <Container className="container__change-email">
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <p className="info">Zmień adres e-mail</p>
+                        <TextField
+                            className="form-input"
+                            type="email"
+                            placeholder="E-mail"
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
+                            variant="outlined"
+                            fullWidth
+                        />
+                        <p className="info"
+                            style={{ display: validMail ? '' : 'none' }}>{messages.invalidEmail.message}</p>
+                        <CircularProgress
+                            style={{ display: spinner ? '' : 'none' }}/>
+                        <div className="button"><Btn value={'Zapisz e-mail'} onClick={sendForm} /></div>
 
-        </Grid>
+                    </Grid>
+                </Grid>
+            </Container>
+        </>
     )
 }

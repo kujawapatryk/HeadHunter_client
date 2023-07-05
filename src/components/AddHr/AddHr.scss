@@ -1,14 +1,10 @@
 @import '../../variables';
 
 .page-background__add-hr {
-  width: 100vw;
-  height: 80vh;
-  //background: $header-dark;
-  //display: table-cell;
-  //vertical-align: middle;
 
   .add-hr-container {
     width: 40%;
+    max-width: 50rem;
 
     .logo {
       height: auto;
@@ -18,15 +14,7 @@
     }
 
     .MuiInputBase-root {
-      margin: 0;
-    }
-
-    .css-wb57ya-MuiFormControl-root-MuiTextField-root {
-      align-items: center;
-
-      .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
-        font-family: unset;
-      }
+      margin: 0 0 1.5rem;
     }
 
     p.info-validation {
