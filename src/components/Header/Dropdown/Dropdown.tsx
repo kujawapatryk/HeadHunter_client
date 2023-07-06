@@ -15,6 +15,7 @@ export const Dropdown = () => {
     const navigate = useNavigate();
     const userName = localStorage.getItem('megakname');
     const gitName = localStorage.getItem('gitname');
+    const permission = Number(localStorage.getItem('permission'));
     const linkAvatar = gitName? `https://github.com/${gitName}.png` : avatar;
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -66,7 +67,11 @@ export const Dropdown = () => {
                         style: { width: menuWidth },
                     }}
                 >
-                    <MenuItem  className="item" >Konto</MenuItem>
+                    {permission === 2 && (
+                        <MenuItem  className="item" onClick={() => navigate('/user/password')} >Konto</MenuItem>
+                    )}
+                    {/*<MenuItem  className="item" onClick={() => navigate('/user/password')} >Konto</MenuItem>*/}
+
                     <MenuItem className="item" 
                         onClick={logout}
                     >Wyloguj</MenuItem>

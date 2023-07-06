@@ -90,7 +90,7 @@ export const NewPassword = () => {
                             <p className="info">Ustaw nowe hasło.</p>
                             <div className="new-password__input">
                                 <TextField
-                                    className="new-password__input"
+                                    className="form-input"
                                     type="password"
                                     placeholder="Podaj hasło"
                                     value={form.password}
@@ -103,7 +103,7 @@ export const NewPassword = () => {
                                     {messages.invalidPasswordFormat.message}
                                 </p>
                                 <TextField
-                                    className="new-password__input"
+                                    className="form-input"
                                     type="password"
                                     placeholder="Powtórz hasło"
                                     value={form.confirmedPassword}

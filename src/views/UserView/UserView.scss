@@ -1,0 +1,22 @@
+@import "../../variables";
+
+.page-background__user-view {
+  width: 100vw;
+  height: 100vh;
+  padding: 1rem 0;
+  background-color: $primary-dark;
+
+  .main-wrapper__user-view {
+    width: $width-80;
+    margin: 2rem auto;
+    background-color: $lightest-dark;
+
+    .user-view-wrapper {
+      padding-top: 3rem;
+      padding-bottom: 1.7rem;
+      display: flex;
+      justify-content: center;
+      background-color: $primary-dark;
+    }
+  }
+}

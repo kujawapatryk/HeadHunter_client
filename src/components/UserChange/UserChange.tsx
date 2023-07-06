@@ -31,18 +31,24 @@ export const UserChange = () => {
 
     const changeToAdmin = () =>{
         localStorage.setItem('userid','5a06c091-e1d7-11ed-b007-24fd5235b3db');
+
+        // localStorage.setItem('userid','46f84261-df9d-11ed-a2b7-24fd5235b3db');
+
+        localStorage.setItem('permission','1');
         localStorage.setItem('megakname','Administrator');
-        navigate('/admin');
+        navigate('/admin/employed');
     };
 
     const changeToStudent = () =>{
         localStorage.setItem('userid','b7f1cb85-e54a-11ed-86df-24fd5235b3db');
+        localStorage.setItem('permission','3');
         localStorage.setItem('megakname', 'Wojciech Wojciechowski');
         localStorage.setItem('gitname', 'kujawapatryk');
-        navigate('/edit');
+        navigate('/user/edit');
     };
 
     const changeToHR = () =>{
+        localStorage.setItem('permission','2');
         localStorage.setItem('userid','46f84261-df9d-11ed-a2b7-24fd5235b3db');
         localStorage.setItem('megakname', 'Jacek Malinowski');
         navigate('/list');

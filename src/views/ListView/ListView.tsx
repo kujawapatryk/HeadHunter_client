@@ -12,12 +12,13 @@ import { PaginationContext } from '../../contexts/pagination.context';
 import { initialStateFilter } from '../../utils/initialState.filter';
 
 import './ListView.scss';
-import '../../index.scss'
+import '../../index.scss';
 
 export const ListView = () => {
 
     const [filterCon,setFilterCon] = useState(initialStateFilter)
     const [pagination,setPagination] = useState({ page: 0, rowsPerPage:10, allRecords:0 });
+    const data:string[][] = [['Dostępni kursanci','/list'],['Do rozmowy','/list/reserved']];
 
     return (
         <>
@@ -26,7 +27,7 @@ export const ListView = () => {
                 <FilterContext.Provider value={{ filterCon, setFilterCon }}>
                     <PaginationContext.Provider value={{ pagination, setPagination }}>
                         <div className="main-wrapper">
-                            <NavbarStudents/>
+                            <NavbarStudents data={data} />
                             <SearchFilterBar/>
                             <div className="list-wrapper">
                                 <Routes>
