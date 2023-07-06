@@ -28,4 +28,5 @@ export const messages: Messages = {
     emailResetSent: { message: 'Email ze zmianą hasła został wysłany.', variant: 'success' },
     tokenExpired: { message: 'Nie poprawny token lub stracił ważność.', variant: 'error' },
     passwordSuccessfullyChanged: { message: 'Poprawnie zmieniono hasło, możesz się teraz zalogować.', variant: 'success' },
+    noStudentsMessage: { message: 'Brak studentów do wyświetlenia.', variant: 'warning' },
 }
