@@ -13,7 +13,7 @@ import './UserView.scss';
 import '../../index.scss';
 
 export const UserView = () => {
-    let data;
+    let data=[];
     const permission = Number(localStorage.getItem('permission'));
     const hr = [['Zmień hasło','/user/password'],['Zmień e-mail','/user/email'],['Wróć do przeglądania studentów','/list']];
     const student =[['Edytuj CV','/user/edit'],['Zmień hasło','/user/password'],['Zmień e-mail','/user/email'],['Znalazłem prace','/user/job']];
@@ -23,7 +23,7 @@ export const UserView = () => {
         data = student;
     }else{
         snackbar('unAuthorized')
-        return;
+        return null;
     }
 
     return (
