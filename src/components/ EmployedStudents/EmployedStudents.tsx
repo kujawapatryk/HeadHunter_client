@@ -1,26 +1,45 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { IoIosArrowDown } from 'react-icons/io';
 import { Employed } from 'types';
 
 import logo from '../../assets/images/avatar-holder.png';
 import { API_URL } from '../../config/apiUrl';
 import { PaginationContext } from '../../contexts/pagination.context';
+import { messageHandling } from '../../utils/messageHandling';
 import { Btn } from '../Btn/Btn';
 
 import  './EmployedStudents.scss'
 
+type PropsEmployedStudents= {
+    student: Employed[];
+    totalCount: number;
+    message?: string;
+}
+
 export const EmployedStudents = () =>{
 
-    const { pagination } = useContext(PaginationContext);
+    const { pagination, setPagination } = useContext(PaginationContext);
     const [students,setStudents] = useState<Employed[]>([]);
     useEffect(() => {
 
         (async () => {
-            const res = await fetch(`${API_URL}/manage/employed-students`, {
+            const page ={
+                page: pagination.page.toString(),
+                rowsPerPage: pagination.rowsPerPage.toString(),
+            }
+            const query =new URLSearchParams(page);
+            const res = await fetch(`${API_URL}/manage/employed-students?${query}`, {
                 method: 'GET',
             });
-            setStudents(await res.json());
-            console.log(students)
+            const data:PropsEmployedStudents = await res.json()
+            if(data.message) {
+                messageHandling(data.message, res.status);
+                return;
+            }
+            setPagination({
+                ...pagination,
+                allRecords: Number(data.totalCount),
+            });
+            setStudents(data.student);
 
         })();
 
@@ -50,12 +69,6 @@ export const EmployedStudents = () =>{
                             </div>
                             <div className="input-container">
                                 <Btn value="Przywróć studenta"  />
-
-                                <IoIosArrowDown
-                                    size={30}
-                                    fill="#666666"
-                                    className={'user-data__nav__svg'}
-                                />
                             </div>
                         </div>
 
