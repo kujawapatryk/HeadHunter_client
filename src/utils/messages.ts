@@ -29,4 +29,5 @@ export const messages: Messages = {
     tokenExpired: { message: 'Nie poprawny token lub stracił ważność.', variant: 'error' },
     passwordSuccessfullyChanged: { message: 'Poprawnie zmieniono hasło, możesz się teraz zalogować.', variant: 'success' },
     noStudentsMessage: { message: 'Brak studentów do wyświetlenia.', variant: 'warning' },
+    restoreStudent: { message: 'Student został przywrócony.', variant: 'success' },
 }
