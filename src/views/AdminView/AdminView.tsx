@@ -14,7 +14,7 @@ import { PaginationContext } from '../../contexts/pagination.context';
 import './AdminView.scss';
 
 export const AdminView = () => {
-    const [pagination,setPagination] = useState(() => ({ page: 0, rowsPerPage: 10, allRecords: 0 }));
+    const [pagination,setPagination] = useState({ page: 0, rowsPerPage: 10, allRecords: 0 } );
     const location = useLocation();
     console.log(location);
     const isEmployedPath = location.pathname === '/admin/employed';
