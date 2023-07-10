@@ -14,7 +14,7 @@
     }
 
     .MuiInputBase-root {
-      margin: 0 0 1.5rem;
+      margin-bottom: 1.5rem;
     }
 
     p.info-validation {
@@ -31,7 +31,7 @@
       color: $input-holder;
       border: none;
       font-size: $fs-sm;
-      font-weight: 400;
+
     }
 
     input::placeholder {
@@ -52,9 +52,6 @@
       text-transform: none;
     }
 
-    .css-wb57ya-MuiFormControl-root-MuiTextField-root {
-      margin-bottom: 1.5rem;
-    }
   }
 }
 
