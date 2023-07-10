@@ -23,33 +23,26 @@
       text-align: center;
     }
 
-    input {
-      width: 100%;
-      height: 3rem;
-      padding: .65rem 1.7rem;
-      background-color: $lightest-dark;
-      color: $input-holder;
-      border: none;
-      font-size: $fs-sm;
+    .form-input{
+      input {
+        width: 100%;
+        height: 3rem;
+        padding: .65rem 1.7rem;
+        background-color: $lightest-dark;
+        color: $input-holder;
+        border: none;
+        font-size: $fs-sm;
 
+      }
+
+      input::placeholder {
+        opacity: 0.75;
+      }
     }
 
-    input::placeholder {
-      opacity: 0.75;
-    }
-
-    Button.add-hr-btn {
-      display: block;
-      height: 4rem;
-      margin: 1rem auto;
-      padding: 1rem 1.6rem;
-      text-align: center;
-      font-weight: normal;
-      background-color: $primary-btn;
-      border-radius: 0;
-      color: $white;
-      font-size: $fs-sm;
-      text-transform: none;
+    .button{
+      display: flex;
+      justify-content: center;
     }
 
   }
