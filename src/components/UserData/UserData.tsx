@@ -54,6 +54,7 @@ export const UserData = () => {
         (async () => {
             const res = await fetch(`${API_URL}/student/students?${filtersParams}`, {
                 method: 'GET',
+                credentials: 'include',
             });
             const { data,allRecords }: StudentResults = await res.json();
             const student = fragmentValues(data);

@@ -30,9 +30,10 @@ export const EmployedStudents = () =>{
             const query =new URLSearchParams(page);
             const res = await fetch(`${API_URL}/manage/employed-students?${query}`, {
                 method: 'GET',
+                credentials: 'include',
             });
             const data:PropsEmployedStudents = await res.json()
-            console.log(data)
+
             if(data.message) {
                 messageHandling(data.message, res.status);
                 return;
@@ -45,7 +46,7 @@ export const EmployedStudents = () =>{
 
         })();
 
-    }, [pagination.page, students]);
+    }, [pagination.page]);
 
     const clickHandler = (studentId: string, index: number) =>{
         (async () => {

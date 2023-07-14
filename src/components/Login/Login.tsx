@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Button, CircularProgress, Container, Grid, IconButton, InputAdornment, TextField } from '@mui/material';
+import { UserState } from 'types';
 
 import logo from '../../assets/images/logo.png';
 import { API_URL } from '../../config/apiUrl';
@@ -32,16 +33,7 @@ export const Login: React.FC<LoginProps> = ({ setLoggedIn }) => {
 
     const login = async () => {
 
-        //  const regexPassword = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/;
         const regexEmail = /^\S+@\S+\.\S+$/;
-        // if(!regexEmail.test(email) && !regexPassword.test(password)){
-        //     setInputTextEmail('');
-        //     setInputTextPassword('');
-        // }else if(!regexEmail.test(email)){
-        //     setInputTextEmail('');
-        // }else if(!regexPassword.test(password)){
-        //     setInputTextPassword('');
-        // }else {
 
         if(!regexEmail.test(email)){
             setInputTextEmail(true);
@@ -55,30 +47,25 @@ export const Login: React.FC<LoginProps> = ({ setLoggedIn }) => {
         try {
             const response = await fetch(`${API_URL}/user/login`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ email, password })
             });
-            const data = await response.json();
 
+            const data = await response.json();
+            console.log(data);
             if (response.ok) {
                 setLoggedIn(true);
                 localStorage.setItem('userid', data.id);
-                if (data.state === 1) {
-                    localStorage.setItem('megakname', 'Administrator');
-                    navigate('/admin');
-                } else if (data.state === 2) {
-                    const resName = await fetch(`${API_URL}/hr/name/${data.id}`);
-                    const fullName = await resName.json();
-                    localStorage.setItem('megakname', fullName);
-                    console.log(fullName);
+                localStorage.setItem('megakname', data.name);
+                if (data.state === UserState.admin) {
+                    navigate('/admin/employed');
+                } else if (data.state === UserState.hr) {
                     navigate('/list');
-                } else {
-                    const resName = await fetch(`${API_URL}/student/name/${data.id}`);
-                    const { firstName, lastName, githubUsername } = await resName.json();
-                    localStorage.setItem('megakname', firstName + ' ' + lastName);
-                    localStorage.setItem('gitname', githubUsername);
+                } else if (data.state === UserState.student){
+                    localStorage.setItem('gitname', data.githubUsername);
                     navigate('/edit');
                 }
             } else {
@@ -93,12 +80,6 @@ export const Login: React.FC<LoginProps> = ({ setLoggedIn }) => {
         }
 
     };
-
-    // const handeSubmit = async (e: React.MouseEvent) => {
-    //     e.preventDefault();
-    //
-    //     const user = await login();
-    // };
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
