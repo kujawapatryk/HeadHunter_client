@@ -30,4 +30,5 @@ export const messages: Messages = {
     passwordSuccessfullyChanged: { message: 'Poprawnie zmieniono hasło, możesz się teraz zalogować.', variant: 'success' },
     noStudentsMessage: { message: 'Brak studentów do wyświetlenia.', variant: 'warning' },
     restoreStudent: { message: 'Student został przywrócony.', variant: 'success' },
+    invalidCredentials: { message: 'Błędny login lub hasło.', variant: 'error' },
 }
