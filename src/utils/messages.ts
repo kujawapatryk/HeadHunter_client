@@ -33,4 +33,5 @@ export const messages: Messages = {
     invalidCredentials: { message: 'Błędny login lub hasło.', variant: 'error' },
     logout: { message: 'Zostałeś wylogowany.', variant: 'success' },
     errorLogin: { message: 'Podczas logowania wystąpił błąd.', variant: 'error' },
+    emailChanged: { message: 'Email został zmieniony.', variant: 'success' },
 }
