@@ -31,4 +31,6 @@ export const messages: Messages = {
     noStudentsMessage: { message: 'Brak studentów do wyświetlenia.', variant: 'warning' },
     restoreStudent: { message: 'Student został przywrócony.', variant: 'success' },
     invalidCredentials: { message: 'Błędny login lub hasło.', variant: 'error' },
+    logout: { message: 'Zostałeś wylogowany.', variant: 'success' },
+    errorLogin: { message: 'Podczas logowania wystąpił błąd.', variant: 'error' },
 }
