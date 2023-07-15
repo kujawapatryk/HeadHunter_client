@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { UserState } from 'types';
 
+import { Auth } from '../../components/Auth/Auth';
 import { ChangeEmail } from '../../components/ChangeDataUser/ChangeEmail/ChangeEmail';
 import { ChangePassword } from '../../components/ChangeDataUser/ChangePassword/ChangePassword';
 import { FoundJob } from '../../components/ChangeDataUser/FoundJob/FoundJob';
@@ -17,9 +19,9 @@ export const UserView = () => {
     const permission = Number(localStorage.getItem('permission'));
     const hr = [['Zmień hasło','/user/password'],['Zmień e-mail','/user/email'],['Wróć do przeglądania studentów','/list']];
     const student =[['Edytuj CV','/user/edit'],['Zmień hasło','/user/password'],['Zmień e-mail','/user/email'],['Znalazłem prace','/user/job']];
-    if(permission === 2){
+    if(permission === UserState.hr){
         data = hr;
-    }else if(permission === 3){
+    }else if(permission === UserState.student){
         data = student;
     }else{
         snackbar('unAuthorized')
@@ -36,10 +38,12 @@ export const UserView = () => {
                             <NavbarStudents data={data} />
                             <div className="user-view-wrapper">
                                 <Routes>
-                                    <Route path="/edit" element={<CVEdit />}/>
-                                    <Route path="/password" element={<ChangePassword />}/>
-                                    <Route path="/email" element={<ChangeEmail />}/>
-                                    <Route path="/job" element={<FoundJob />}/>
+                                    <Route path="/edit" element={<Auth roles={[UserState.student]} > <CVEdit /> </Auth>} />
+                                    <Route path="/job" element={<Auth roles={[UserState.student]} > <FoundJob /> </Auth>} />
+
+                                    <Route path="/password" element={<Auth roles={[UserState.hr,UserState.student]} > <ChangeEmail /> </Auth>} />
+                                    <Route path="/email" element={<Auth roles={[UserState.hr,UserState.student]} > <ChangePassword /> </Auth>} />
+
                                 </Routes>
                             </div>
                         </div>

@@ -30,7 +30,6 @@ export const AdminView = () => {
                         <NavbarStudents data={admin} />
                         <div className="admin-view-wrapper">
                             <Routes>
-
                                 <Route path="/employed" element={<EmployedStudents />}/>
                                 <Route path="/add-hr" element={<AddHr />}/>
                                 <Route path="/add-students" element={<SendStudentsData />}/>

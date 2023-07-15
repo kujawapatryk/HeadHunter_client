@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
+import { UserState } from 'types';
 
-import { AuthWrapper } from './components/Auth/AuthWrapper';
+import { Auth } from './components/Auth/Auth';
 import { Login } from './components/Login/Login';
 import { NewPassword } from './components/NewPassword/NewPassword';
 import { PasswordReminder } from './components/PasswordReminder/PasswordReminder';
@@ -16,25 +17,24 @@ import { UserView } from './views/UserView/UserView';
 import './index.scss';
 
 export const App = () => {
-    const [isLoggedIn, setLoggedIn] = useState(true); //do zmiany w momencie przekazywania wartości z backend
 
     return (
         <>
             <UserChange />
             <SnackbarProvider maxSnack={5}>
                 <Routes>
+                    <Route path="/" element={<Login />} />
                     <Route path="/new-password/:token/:userId" element={<NewPassword />} />
                     <Route path="/password-reset" element={<PasswordReminder />}/>
-                    <Route path="/admin/*" element={<AdminView />} />
-                    <Route path="/cv/:studentId" element={<CVView />} />
                     <Route path="/log/:token" element={<TestToken />} />
+
                     <Route path="/user/*" element={<UserView />} />
-                    <Route>
-                        <Route path="/" element={<Login setLoggedIn={setLoggedIn} />} />
-                    </Route>
-                    <Route path="/" element={<AuthWrapper isLoggedIn={isLoggedIn} />}>
-                        <Route path="/list/*" element={<ListView />} />
-                    </Route>
+
+                    <Route path="/admin/*" element={<Auth roles={[UserState.admin]}> <AdminView /> </Auth>} />
+
+                    <Route path="/list/*" element={<Auth roles={[UserState.hr]} > <ListView /> </Auth>} />
+                    <Route path="/cv/:studentId" element={<Auth roles={[UserState.hr]} > <CVView /> </Auth>} />
+
                 </Routes>
             </SnackbarProvider>
         </>
