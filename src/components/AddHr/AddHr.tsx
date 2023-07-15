@@ -56,6 +56,7 @@ export const AddHr = () => {
             try {
                 const res = await fetch(`${API_URL}/manage/add-hr/`, {
                     method: 'POST',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
                     },

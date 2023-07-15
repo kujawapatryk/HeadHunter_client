@@ -52,6 +52,7 @@ export const EmployedStudents = () =>{
         (async () => {
             const res = await fetch(`${API_URL}/manage/restore-student/${studentId}`,{
                 method: 'GET',
+                credentials: 'include',
             });
 
             const data = await res.json()

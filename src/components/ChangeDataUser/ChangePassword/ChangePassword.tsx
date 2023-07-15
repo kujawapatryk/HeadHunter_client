@@ -33,6 +33,7 @@ export const ChangePassword = () =>{
                 setSpinner(true);
                 const res = await fetch(`${API_URL}/user/newpass`, {
                     method: 'PATCH',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -47,7 +48,8 @@ export const ChangePassword = () =>{
                         password: '',
                         confirmedPassword: '',
                     });
-                    console.log('Dane zostały zapisane.')
+
+                    snackbar(data.message);
                 }
             } catch (e) {
                 snackbar('tryLater');

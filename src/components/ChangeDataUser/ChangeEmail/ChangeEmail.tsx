@@ -3,8 +3,8 @@ import { CircularProgress, Container, Grid, TextField } from '@mui/material';
 
 import { API_URL } from '../../../config/apiUrl';
 import { messages } from '../../../utils/messages';
-import { navigate } from '../../../utils/navigate';
 import { snackbar } from '../../../utils/snackbar';
+import { regexEmail } from '../../../utils/validation/regexEmail';
 import { Btn } from '../../Btn/Btn';
 
 import './ChangeEmail.scss';
@@ -17,12 +17,13 @@ export const ChangeEmail = () => {
 
     const sendForm = async () => {
 
-        if(email.includes('@')){
+        if(regexEmail(email)){
 
             try {
                 setSpinner(true);
-                const res = await fetch(`${API_URL}/user/changemail`, {
+                const res = await fetch(`${API_URL}/user/change-email`, {
                     method: 'PATCH',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -34,8 +35,7 @@ export const ChangeEmail = () => {
                 const data = await res.json();
                 if (data) {
                     setEmail('');
-                    console.log('Dane zostały zapisane.');
-                    navigate('/edit');
+                    snackbar(data.message);
                 }
             } catch (e) {
                 snackbar('tryLater');
