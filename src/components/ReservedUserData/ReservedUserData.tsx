@@ -20,7 +20,6 @@ type StudentResults = { allRecords: number; data: ReservedStudent[] };
 export const ReservedUserData = () => {
 
     const navigate = useNavigate();
-    const hrId = localStorage.getItem('userid');
 
     const { filterCon } = useContext(FilterContext);
     const [studentData, setStudentData] = useState<StudentProps[]>([]);
@@ -70,9 +69,6 @@ export const ReservedUserData = () => {
             });
         })();
 
-        if (!hrId){
-            navigate('/');
-        }
     }, [pagination.page, filterCon]);
 
     const formatDate = (reservationEndDate: string) => {
