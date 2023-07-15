@@ -19,6 +19,7 @@ export const EmployedStudents = () =>{
 
     const { pagination, setPagination } = useContext(PaginationContext);
     const [students,setStudents] = useState<Employed[]>([]);
+
     useEffect(() => {
 
         (async () => {
@@ -31,6 +32,7 @@ export const EmployedStudents = () =>{
                 method: 'GET',
             });
             const data:PropsEmployedStudents = await res.json()
+            console.log(data)
             if(data.message) {
                 messageHandling(data.message, res.status);
                 return;
@@ -43,7 +45,23 @@ export const EmployedStudents = () =>{
 
         })();
 
-    }, [pagination.page]);
+    }, [pagination.page, students]);
+
+    const clickHandler = (studentId: string, index: number) =>{
+        (async () => {
+            const res = await fetch(`${API_URL}/manage/restore-student/${studentId}`,{
+                method: 'GET',
+            });
+
+            const data = await res.json()
+            messageHandling(data.message, res.status);
+
+            setStudents((students) => {
+                return students.filter((_, i) => i !== index);
+            });
+
+        })();
+    }
 
     return(
         <>
@@ -68,7 +86,7 @@ export const EmployedStudents = () =>{
 
                             </div>
                             <div className="input-container">
-                                <Btn value="Przywróć studenta"  />
+                                <Btn value="Przywróć studenta" onClick={() => clickHandler(item.studentId, index)} />
                             </div>
                         </div>
 
