@@ -8,6 +8,7 @@ import { API_URL } from '../../config/apiUrl';
 import { messages } from '../../utils/messages';
 import { setLocalStorageLogin } from '../../utils/setLocalStorageLogin';
 import { snackbar } from '../../utils/snackbar';
+import { regexEmail } from '../../utils/validation/regexEmail';
 import { regexPassword } from '../../utils/validation/regexPassword';
 
 import './Login.scss';
@@ -24,9 +25,7 @@ export const Login = () => {
 
     const login = async () => {
 
-        const regexEmail = /^\S+@\S+\.\S+$/;
-
-        if(!regexEmail.test(email)){
+        if(!regexEmail(email)){
             setInputTextEmail(true);
             return;
         }
