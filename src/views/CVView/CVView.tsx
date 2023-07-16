@@ -15,14 +15,17 @@ import './CVView.scss';
 import '../../index.scss'
 
 export const CVView = () => {
-    //  const navigate = useNavigate();
+
     const contractType = ['', 'Umowa o pracę', 'B2B', 'Umowa zlecenie', 'Umowa o dzieło'];
     const { studentId } = useParams<string>();
     const [data, setData] = useState<SingleStudent | null>(null);
-    const hrId = localStorage.getItem('userid');
+
     useEffect( () => {
         (async () => {
-            const res = await fetch(`${API_URL}/student/getcv/${studentId}/${hrId}`);
+            const res = await fetch(`${API_URL}/student/get-cv/${studentId}`,{
+                method: 'GET',
+                credentials: 'include',
+            });
             const data = await res.json();
             if(data.message)
                 if(!messageHandling(data.message,res.status))  return;
