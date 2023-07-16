@@ -3,12 +3,12 @@ import { Button, CircularProgress, Container, TextField } from '@mui/material';
 
 import logo from '../../assets/images/avatar-holder.png';
 import { API_URL } from '../../config/apiUrl';
+import { snackbar } from '../../utils/snackbar';
 
 import './CVEdit.scss';
 import '../../index.scss'
 export const CVEdit = () =>{
 
-    const userId = localStorage.getItem('userid');
     const [spinner, setSpinner] = useState(false);
     const [info, setInfo] = useState(false);
     const [form, setForm] = useState({
@@ -33,7 +33,10 @@ export const CVEdit = () =>{
 
     useEffect( () => {
         (async () => {
-            const res = await fetch(`${API_URL}/student/getcvedit/${userId}`);
+            const res = await fetch(`${API_URL}/student/get-cv-edit`, {
+                method: 'GET',
+                credentials: 'include',
+            });
             const data = (await res.json());
             setForm(data);
         })();
@@ -53,23 +56,21 @@ export const CVEdit = () =>{
         } else {
             setInfo(false);
             try {
-                const dataToSend = {
-                    ...form,
-                    studentId: userId,
-                }
-                const res = await fetch(`${API_URL}/student/changedata`, {
+
+                const res = await fetch(`${API_URL}/student/change-data`, {
                     method: 'PATCH',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(dataToSend),
+                    body: JSON.stringify(form),
                 });
                 const data = await res.json();
-                if (data === userId) {
-                    console.log('Dane zostały zapisane');
+                if (res.status === 200) {
+                    snackbar('dataSaved');
                 }
             } catch (e) {
-                console.error('Coś poszło nie tak. Spróbuj później');
+                snackbar('tryLater')
             } finally {
                 setSpinner(false);
             }
