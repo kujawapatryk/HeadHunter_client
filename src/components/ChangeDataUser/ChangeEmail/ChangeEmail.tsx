@@ -10,8 +10,9 @@ import { Btn } from '../../Btn/Btn';
 import './ChangeEmail.scss';
 
 export const ChangeEmail = () => {
-    const userId = localStorage.getItem('userid');
+
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [spinner, setSpinner] = useState(false);
     const [validMail,setValidMail] = useState(false);
 
@@ -28,14 +29,18 @@ export const ChangeEmail = () => {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        userId,
+                        password,
                         email,
                     }),
                 });
                 const data = await res.json();
                 if (data) {
-                    setEmail('');
+
                     snackbar(data.message);
+                    if(res.status === 200){
+                        setEmail('');
+                        setPassword('');
+                    }
                 }
             } catch (e) {
                 snackbar('tryLater');
@@ -57,7 +62,7 @@ export const ChangeEmail = () => {
                         <TextField
                             className="form-input"
                             type="email"
-                            placeholder="E-mail"
+                            placeholder="Nowy e-mail"
                             value={email}
                             onChange={e => setEmail(e.target.value)}
                             variant="outlined"
@@ -65,6 +70,19 @@ export const ChangeEmail = () => {
                         />
                         <p className="info"
                             style={{ display: validMail ? '' : 'none' }}>{messages.invalidEmail.message}</p>
+
+                        <TextField
+                            className="form-input"
+                            type="password"
+                            placeholder="Aktualne hasło"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            variant="outlined"
+                            fullWidth
+                        />
+                        <p className="info"
+                            style={{ display: validMail ? '' : 'none' }}>{messages.invalidEmail.message}</p>
+
                         <CircularProgress
                             style={{ display: spinner ? '' : 'none' }}/>
                         <div className="button"><Btn value={'Zapisz e-mail'} onClick={sendForm} /></div>
