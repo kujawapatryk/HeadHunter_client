@@ -41,8 +41,8 @@ export const UserView = () => {
                                     <Route path="/edit" element={<Auth roles={[UserState.student]} > <CVEdit /> </Auth>} />
                                     <Route path="/job" element={<Auth roles={[UserState.student]} > <FoundJob /> </Auth>} />
 
-                                    <Route path="/password" element={<Auth roles={[UserState.hr,UserState.student]} > <ChangeEmail /> </Auth>} />
-                                    <Route path="/email" element={<Auth roles={[UserState.hr,UserState.student]} > <ChangePassword /> </Auth>} />
+                                    <Route path="/password" element={<Auth roles={[UserState.hr,UserState.student]} > <ChangePassword /> </Auth>} />
+                                    <Route path="/email" element={<Auth roles={[UserState.hr,UserState.student]} > <ChangeEmail /> </Auth>} />
 
                                 </Routes>
                             </div>
