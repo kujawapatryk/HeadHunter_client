@@ -34,4 +34,6 @@ export const messages: Messages = {
     logout: { message: 'Zostałeś wylogowany.', variant: 'success' },
     errorLogin: { message: 'Podczas logowania wystąpił błąd.', variant: 'error' },
     emailChanged: { message: 'Email został zmieniony.', variant: 'success' },
+    passwordChanged: { message: 'Hasło zostało zmienione.', variant: 'success' },
+    dataSaved: { message: 'Dane zostały zapisane.', variant: 'success' },
 }
