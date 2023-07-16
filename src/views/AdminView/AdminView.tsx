@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
-import { EmployedStudents } from '../../components/ EmployedStudents/EmployedStudents';
 import { AddHr } from '../../components/AddHr/AddHr';
 import { ChangeEmail } from '../../components/ChangeDataUser/ChangeEmail/ChangeEmail';
 import { ChangePassword } from '../../components/ChangeDataUser/ChangePassword/ChangePassword';
+import { EmployedStudents } from '../../components/EmployedStudents/EmployedStudents';
 import { Header } from '../../components/Header/Header';
 import { NavbarStudents } from '../../components/NavbarStudents/NavbarStudents';
 import { Pagination } from '../../components/Pagination/Pagination';
