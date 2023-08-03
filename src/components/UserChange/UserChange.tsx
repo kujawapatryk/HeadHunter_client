@@ -1,13 +1,36 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
+import { UserState } from 'types';
+
+import { API_URL } from '../../config/apiUrl';
+import { setLocalStorageLogin } from '../../utils/setLocalStorageLogin';
+import { snackbar } from '../../utils/snackbar';
 
 import './UserChange.scss';
+
+type Users = {
+    email?: string,
+    password?: string,
+}[];
 
 export const UserChange = () => {
     const [isDragging, setIsDragging] = useState(false);
     const [mouseOffsetX, setMouseOffsetX] = useState(0);
     const [mouseOffsetY, setMouseOffsetY] = useState(0);
+    const [spinner, setSpinner] = useState(false);
     const navigate = useNavigate();
+
+    const users: Users = [{},{
+        email: 'wojtek@wp.pl',
+        password: 'Test123@',
+    },{
+        email: 'ania@wp.pl',
+        password: 'Test123@',
+    },{
+        email: 'lorem@wp.pl',
+        password: 'Test123@',
+    }]
 
     const handleMouseDown = (event: React.MouseEvent<HTMLButtonElement>) => {
         setIsDragging(true);
@@ -29,29 +52,33 @@ export const UserChange = () => {
         setIsDragging(false);
     };
 
-    const changeToAdmin = () =>{
-        localStorage.setItem('userid','5a06c091-e1d7-11ed-b007-24fd5235b3db');
+    const changeTo = async (user: number) => {
 
-        // localStorage.setItem('userid','46f84261-df9d-11ed-a2b7-24fd5235b3db');
+        const { email, password } = users[user];
+        setSpinner(true);
+        try {
+            const response = await fetch(`${API_URL}/auth/login`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password })
+            });
 
-        localStorage.setItem('permission','1');
-        localStorage.setItem('megakname','Administrator');
-        navigate('/admin/employed');
-    };
+            const data = await response.json();
+            if (response.ok) {
+                setLocalStorageLogin(data, navigate);
+            } else {
+                snackbar(data.message);
 
-    const changeToStudent = () =>{
-        localStorage.setItem('userid','b7f1cb85-e54a-11ed-86df-24fd5235b3db');
-        localStorage.setItem('permission','3');
-        localStorage.setItem('megakname', 'Wojciech Wojciechowski');
-        localStorage.setItem('gitname', 'kujawapatryk');
-        navigate('/user/edit');
-    };
-
-    const changeToHR = () =>{
-        localStorage.setItem('permission','2');
-        localStorage.setItem('userid','46f84261-df9d-11ed-a2b7-24fd5235b3db');
-        localStorage.setItem('megakname', 'Jacek Malinowski');
-        navigate('/list');
+            }
+        } catch (error) {
+            console.error(error);
+            snackbar('errorLogin');
+        } finally {
+            setSpinner(false);
+        }
     };
 
     return (
@@ -63,9 +90,11 @@ export const UserChange = () => {
             onMouseUp={handleMouseUp}
         >
 
-            <button className="user-change___btm" onClick={changeToAdmin}>Administrator</button>
-            <button className="user-change___btm" onClick={changeToStudent}>Student</button>
-            <button className="user-change___btm" onClick={changeToHR}>HR</button>
+            <button className="user-change___btm" onClick={() => changeTo(UserState.admin)}>Administrator</button>
+            <button className="user-change___btm" onClick={() => changeTo(UserState.hr)}>HR</button>
+            <button className="user-change___btm" onClick={() => changeTo(UserState.student)}>Student</button>
+
+            <CircularProgress style={{ display: spinner ? '' : 'none' }}/>
         </button>
 
     )

@@ -8,6 +8,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 import avatar from '../../../assets/images/avatar-holder.png';
+import { logout } from '../../../utils/logout';
 
 import './Dropdown.scss';
 
@@ -32,12 +33,19 @@ export const Dropdown = () => {
         setAnchorEl(null);
     };
     
-    const logout = () => {
-        localStorage.removeItem('userid');
-        localStorage.removeItem('gitname');
-        localStorage.removeItem('megakname');
-        navigate('/');
-    }
+    // const logout = async () => {
+    //     const res = await fetch(`${API_URL}/auth/logout`, {
+    //         method: 'GET',
+    //         credentials: 'include',
+    //     });
+    //     const { status, message } = await res.json();
+    //     if(status === 'ok'){
+    //         localStorage.clear();
+    //         snackbar(message);
+    //         navigate('/');
+    //     }
+    //
+    // }
 
     return (
         <div>
@@ -70,10 +78,9 @@ export const Dropdown = () => {
                     {permission === 2 && (
                         <MenuItem  className="item" onClick={() => navigate('/user/password')} >Konto</MenuItem>
                     )}
-                    {/*<MenuItem  className="item" onClick={() => navigate('/user/password')} >Konto</MenuItem>*/}
 
                     <MenuItem className="item" 
-                        onClick={logout}
+                        onClick={ () => logout(navigate)}
                     >Wyloguj</MenuItem>
                 </Menu>
             </div>

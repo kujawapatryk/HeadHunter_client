@@ -30,4 +30,10 @@ export const messages: Messages = {
     passwordSuccessfullyChanged: { message: 'Poprawnie zmieniono hasło, możesz się teraz zalogować.', variant: 'success' },
     noStudentsMessage: { message: 'Brak studentów do wyświetlenia.', variant: 'warning' },
     restoreStudent: { message: 'Student został przywrócony.', variant: 'success' },
+    invalidCredentials: { message: 'Błędny login lub hasło.', variant: 'error' },
+    logout: { message: 'Zostałeś wylogowany.', variant: 'success' },
+    errorLogin: { message: 'Podczas logowania wystąpił błąd.', variant: 'error' },
+    emailChanged: { message: 'Email został zmieniony.', variant: 'success' },
+    passwordChanged: { message: 'Hasło zostało zmienione.', variant: 'success' },
+    dataSaved: { message: 'Dane zostały zapisane.', variant: 'success' },
 }

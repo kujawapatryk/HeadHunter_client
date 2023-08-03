@@ -10,7 +10,7 @@ import { Btn } from '../../Btn/Btn';
 import './ChangePassword.scss';
 
 export const ChangePassword = () =>{
-    const userId = localStorage.getItem('userid');
+
     const [spinner,setSpinner] = useState(false)
     const [validPass, setValidPass] = useState(true);
     const [validPass2, setValidPass2] = useState(true);
@@ -31,15 +31,13 @@ export const ChangePassword = () =>{
 
             try {
                 setSpinner(true);
-                const res = await fetch(`${API_URL}/user/newpass`, {
+                const res = await fetch(`${API_URL}/user/change-password`, {
                     method: 'PATCH',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        ...form,
-                        userId,
-                    }),
+                    body: JSON.stringify(form),
                 });
                 const data = await res.json();
                 if (data) {
@@ -47,7 +45,8 @@ export const ChangePassword = () =>{
                         password: '',
                         confirmedPassword: '',
                     });
-                    console.log('Dane zostały zapisane.')
+
+                    snackbar(data.message);
                 }
             } catch (e) {
                 snackbar('tryLater');

@@ -20,7 +20,6 @@ type StudentResults = { allRecords: number; data: ReservedStudent[] };
 export const ReservedUserData = () => {
 
     const navigate = useNavigate();
-    const hrId = localStorage.getItem('userid');
 
     const { filterCon } = useContext(FilterContext);
     const [studentData, setStudentData] = useState<StudentProps[]>([]);
@@ -59,6 +58,7 @@ export const ReservedUserData = () => {
         (async () => {
             const res = await fetch(`${API_URL}/student/students?${filtersParams}`, {
                 method: 'GET',
+                credentials: 'include',
             });
             const { data, allRecords }: StudentResults = await res.json();
             const student = fragmentValues(data);
@@ -69,9 +69,6 @@ export const ReservedUserData = () => {
             });
         })();
 
-        if (!hrId){
-            navigate('/');
-        }
     }, [pagination.page, filterCon]);
 
     const formatDate = (reservationEndDate: string) => {

@@ -1,10 +1,11 @@
 import React, { SyntheticEvent, useState } from 'react';
-import { Button, CircularProgress, Container, Grid, TextField } from '@mui/material';
+import { CircularProgress, Container, Grid, TextField } from '@mui/material';
 
 import logo from '../../assets/images/logo.png';
 import { API_URL } from '../../config/apiUrl';
 import { messageHandling } from '../../utils/messageHandling';
 import { messages } from '../../utils/messages';
+import { Btn } from '../Btn/Btn';
 
 import '../../index.scss';
 import './AddHr.scss';
@@ -55,6 +56,7 @@ export const AddHr = () => {
             try {
                 const res = await fetch(`${API_URL}/manage/add-hr/`, {
                     method: 'POST',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -63,7 +65,8 @@ export const AddHr = () => {
 
                 );
                 const data = await res.json();
-                if(!await messageHandling(data.message,res.status))  return;
+                if(!messageHandling(data.message,res.status))
+                    return null;
                 setForm(emptyForm);
 
             } finally {
@@ -85,6 +88,7 @@ export const AddHr = () => {
                             </p>
                             <TextField
                                 type="email"
+                                className="form-input"
                                 placeholder="E-mail"
                                 value={form.email}
                                 onChange={(e) => {
@@ -101,6 +105,7 @@ export const AddHr = () => {
                             </p>
                             <TextField
                                 type="text"
+                                className="form-input"
                                 placeholder="Imię i nazwisko"
                                 value={form.fullName}
                                 onChange={(e) => {
@@ -117,6 +122,7 @@ export const AddHr = () => {
                             </p>
                             <TextField
                                 type="text"
+                                className="form-input"
                                 placeholder="Firma"
                                 value={form.company}
                                 onChange={(e) => {
@@ -133,6 +139,7 @@ export const AddHr = () => {
                             </p>
                             <TextField
                                 type="number"
+                                className="form-input"
                                 placeholder="Max. liczba kursantów"
                                 value={form.maxReservedStudents}
                                 onChange={(e) => {
@@ -143,9 +150,10 @@ export const AddHr = () => {
                                 fullWidth
                             />
                         </Grid>
-                        <Grid>
+                        <Grid className="button">
                             <CircularProgress style={{ display: spinner ? '' : 'none' }}/>
-                            <Button className="add-hr-btn" onClick={sendForm}>Zapisz</Button>
+                            <Btn value={'Zapisz'} onClick={sendForm} />
+                            {/*<Button className="add-hr-btn" onClick={sendForm}>Zapisz</Button>*/}
                         </Grid>
                     </Grid>
                 </Grid>

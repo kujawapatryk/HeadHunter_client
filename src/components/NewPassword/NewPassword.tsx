@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { CircularProgress, Container, Grid, TextField } from '@mui/material';
 
 import logo from '../../assets/images/logo.png';
 import { API_URL } from '../../config/apiUrl';
 import { messageHandling } from '../../utils/messageHandling';
 import { messages } from '../../utils/messages';
-import { navigate } from '../../utils/navigate';
 import { regexPassword } from '../../utils/validation/regexPassword';
 import { Btn } from '../Btn/Btn';
 
@@ -17,6 +16,7 @@ export const NewPassword = () => {
     const [form, setForm]= useState({ password: '', confirmedPassword: '' });
     const [validation, setValidation] = useState({ password: false, confirmedPassword: false });
     const [spinner, setSpinner] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         (async () => {
@@ -27,14 +27,11 @@ export const NewPassword = () => {
                 const data = await res.json();
 
                 if (res.status !== 200) {
-                    console.log('raz?')
                     messageHandling(data.message, res.status);
                     return;
                 }
             } catch (e) {
                 console.log(e);
-            } finally {
-                console.log('koniec');
             }
         })();
     }, []);
@@ -75,7 +72,6 @@ export const NewPassword = () => {
         } catch (e) {
             console.log(e);
         } finally {
-            console.log('koniec');
             setSpinner(false);
         }
     }
