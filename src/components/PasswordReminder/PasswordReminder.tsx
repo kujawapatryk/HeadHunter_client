@@ -1,11 +1,12 @@
 import React, { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, CircularProgress, Container, Grid, TextField } from '@mui/material';
 
 import logo from '../../assets/images/logo.png';
 import { API_URL } from '../../config/apiUrl';
 import { messageHandling } from '../../utils/messageHandling';
-import { navigate } from '../../utils/navigate';
 import { snackbar } from '../../utils/snackbar';
+import { regexEmail } from '../../utils/validation/regexEmail';
 
 import '../../index.scss';
 import './PasswordReminder.scss';
@@ -13,13 +14,14 @@ import './PasswordReminder.scss';
 export const PasswordReminder: React.FC = () => {
     const [spinner, setSpinner] = useState(false);
     const [email,setEmail] = useState('');
-    const regexEmail = /^\S+@\S+\.\S+$/;
+    const navigate = useNavigate()
+
     const changeHandle = (event: ChangeEvent<HTMLInputElement>) =>{
         setEmail(event.target.value);
     }
 
     const sendForm = async () =>{
-        if(!regexEmail.test(email)){
+        if(!regexEmail(email)){
             snackbar('invalidEmail');
             return;
         }

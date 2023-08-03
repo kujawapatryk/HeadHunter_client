@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Internship, SingleStudent, TypeWork } from 'types';
 
 import { Header } from '../../components/Header/Header';
@@ -9,7 +9,6 @@ import { UserCV } from '../../components/UserCV/UserCV';
 import { API_URL } from '../../config/apiUrl';
 import { messageHandling } from '../../utils/messageHandling';
 import { month } from '../../utils/month';
-import { navigate } from '../../utils/navigate';
 
 import './CVView.scss';
 import '../../index.scss'
@@ -19,6 +18,7 @@ export const CVView = () => {
     const contractType = ['', 'Umowa o pracę', 'B2B', 'Umowa zlecenie', 'Umowa o dzieło'];
     const { studentId } = useParams<string>();
     const [data, setData] = useState<SingleStudent | null>(null);
+    const navigate = useNavigate();
 
     useEffect( () => {
         (async () => {
