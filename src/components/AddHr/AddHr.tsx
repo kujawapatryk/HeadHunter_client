@@ -1,19 +1,24 @@
 import React, { SyntheticEvent, useState } from 'react';
-import { Button, CircularProgress, Container, Grid, TextField } from '@mui/material';
+import { CircularProgress, Container, Grid, TextField } from '@mui/material';
 
 import logo from '../../assets/images/logo.png';
 import { API_URL } from '../../config/apiUrl';
+import { messageHandling } from '../../utils/messageHandling';
+import { messages } from '../../utils/messages';
+import { Btn } from '../Btn/Btn';
 
 import '../../index.scss';
 import './AddHr.scss';
 
-export const AddHr: React.FC = () => {
-    const emptyForm = {
-        email: '',
-        fullName: '',
-        company: '',
-        maxReservedStudents: '',
-    };
+const emptyForm = {
+    email: '',
+    fullName: '',
+    company: '',
+    maxReservedStudents: '',
+};
+
+export const AddHr = () => {
+
     const [form, setForm] = useState(emptyForm);
     const [validForm, setValidForm] = useState({
         email: false,
@@ -29,12 +34,6 @@ export const AddHr: React.FC = () => {
             [key]: value,
         }));
 
-        setValidForm({
-            email: !form.email.includes('@'),
-            name: form.fullName === '',
-            company: form.company === '',
-            maxStudent: Number(form.maxReservedStudents) < 1 || Number(form.maxReservedStudents) > 999
-        });
     };
 
     const sendForm = async (e: SyntheticEvent) => {
@@ -55,34 +54,41 @@ export const AddHr: React.FC = () => {
             Number(form.maxReservedStudents) < 1000
         ) {
             try {
-                const res = await fetch(
-                    `${API_URL}/manage/add-hr/${form.email}/${form.fullName}/${form.company}/${form.maxReservedStudents}'`,
+                const res = await fetch(`${API_URL}/manage/add-hr/`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(form),
+                }
+
                 );
                 const data = await res.json();
-                if (data.success) {
-                    setForm(emptyForm);
-                    console.log(data.message);
-                }
-            } catch (e) {
-                console.log('Coś poszło nie tak. Spróbuj później.');
+                if(!messageHandling(data.message,res.status))
+                    return null;
+                setForm(emptyForm);
+
             } finally {
                 setSpinner(false);
             }
         }
+        setSpinner(false)
     };
 
     return (
-        <div className="page-background">
+        <div className="page-background__add-hr">
             <Container className="add-hr-container">
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <img src={logo} alt="Logo" className="logo" />
                         <Grid>
                             <p className="info-validation" style={{ display: validForm.email ? '' : 'none' }}>
-                Podaj prawidłowy adres e-mail
+                                {messages.invalidEmail.message}
                             </p>
                             <TextField
                                 type="email"
+                                className="form-input"
                                 placeholder="E-mail"
                                 value={form.email}
                                 onChange={(e) => {
@@ -95,10 +101,11 @@ export const AddHr: React.FC = () => {
                         </Grid>
                         <Grid>
                             <p className="info-validation" style={{ display: validForm.name ? '' : 'none' }}>
-                Podaj imię i nazwisko HR
+                                {messages.nameRequired.message}
                             </p>
                             <TextField
                                 type="text"
+                                className="form-input"
                                 placeholder="Imię i nazwisko"
                                 value={form.fullName}
                                 onChange={(e) => {
@@ -111,10 +118,11 @@ export const AddHr: React.FC = () => {
                         </Grid>
                         <Grid>
                             <p className="info-validation" style={{ display: validForm.company ? '' : 'none' }}>
-                Podaj nazwę firmy HR
+                                {messages.organizationNameRequired.message}
                             </p>
                             <TextField
                                 type="text"
+                                className="form-input"
                                 placeholder="Firma"
                                 value={form.company}
                                 onChange={(e) => {
@@ -127,10 +135,11 @@ export const AddHr: React.FC = () => {
                         </Grid>
                         <Grid>
                             <p className="info-validation" style={{ display: validForm.maxStudent ? '' : 'none' }}>
-                Podaj liczbę między 1-999
+                                {messages.hrLimit.message}
                             </p>
                             <TextField
                                 type="number"
+                                className="form-input"
                                 placeholder="Max. liczba kursantów"
                                 value={form.maxReservedStudents}
                                 onChange={(e) => {
@@ -141,12 +150,10 @@ export const AddHr: React.FC = () => {
                                 fullWidth
                             />
                         </Grid>
-                        <Grid>
-                            <CircularProgress
-                                style={{ display: spinner ? '' : 'none' }}/>
-                            <Button className="add-hr-btn" onClick={sendForm}>
-                Zapisz
-                            </Button>
+                        <Grid className="button">
+                            <CircularProgress style={{ display: spinner ? '' : 'none' }}/>
+                            <Btn value={'Zapisz'} onClick={sendForm} />
+                            {/*<Button className="add-hr-btn" onClick={sendForm}>Zapisz</Button>*/}
                         </Grid>
                     </Grid>
                 </Grid>

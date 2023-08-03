@@ -5,102 +5,90 @@ import { Button, CircularProgress, Container, Grid, IconButton, InputAdornment, 
 
 import logo from '../../assets/images/logo.png';
 import { API_URL } from '../../config/apiUrl';
+import { messages } from '../../utils/messages';
+import { setLocalStorageLogin } from '../../utils/setLocalStorageLogin';
+import { snackbar } from '../../utils/snackbar';
+import { regexEmail } from '../../utils/validation/regexEmail';
+import { regexPassword } from '../../utils/validation/regexPassword';
 
 import './Login.scss';
 import '../../index.scss'
 
-interface LoginProps {
-    setLoggedIn: (loggedIn: boolean) => void;
-}
-
-// interface LoginParams {
-//     email: string;
-//     password: string;
-// }
-
-export const Login: React.FC<LoginProps> = ({ setLoggedIn }) => {
+export const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState(false);
     const [inputTextEmail, setInputTextEmail] = useState(false);
     const [inputTextPassword, setInputTextPassword] = useState(false);
     const [spinner, setSpinner] = useState(false);
 
     const login = async () => {
+
+        if(!regexEmail(email)){
+            setInputTextEmail(true);
+            return;
+        }
+        if(!regexPassword(password)){
+            setInputTextPassword(true);
+            return;
+        }
         setSpinner(true);
         try {
-            const response = await fetch(`${API_URL}/user/login`, {
+            const response = await fetch(`${API_URL}/auth/login`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ email, password })
             });
-            const data = await response.json();
 
+            const data = await response.json();
             if (response.ok) {
-                setLoggedIn(true);
-                //localStorage.setItem('token', data.user.token);
-                localStorage.setItem('userid',data.id);
-                if (data.state === 1) {
-                    localStorage.setItem('megakname','Administrator');
-                    navigate('/admin');
-                } else if (data.state === 2) {
-                    const resName = await fetch(`${API_URL}/hr/name/${data.id}`);
-                    const fullName = await resName.json();
-                    localStorage.setItem('megakname', fullName);
-                    console.log(fullName);
-                    navigate('/list');
-                } else {
-                    const resName = await fetch(`${API_URL}/student/name/${data.id}`);
-                    const { firstName, lastName, githubUsername } = await resName.json();
-                    localStorage.setItem('megakname', firstName+' '+lastName);
-                    localStorage.setItem('gitname', githubUsername);
-                    navigate('/edit');
-                }
+                setLocalStorageLogin(data, navigate);
             } else {
-                setError(data.message);
-                console.log(error);
+                snackbar(data.message);
+
             }
         } catch (error) {
             console.error(error);
-            setError('An error occurred during login.');
-        }
-        finally {
+            snackbar('errorLogin');
+        } finally {
             setSpinner(false);
         }
+
     };
 
-    // const handeSubmit = async (e: React.MouseEvent) => {
-    //     e.preventDefault();
-    //
-    //     const user = await login();
-    // };
-
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
         setEmail(event.target.value);
-        setInputTextEmail(/^\S+@\S+\.\S+$/.test(event.target.value));
     };
 
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
-        setInputTextPassword(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/.test(event.target.value));
 
+        setPassword(event.target.value);
     };
     const handlePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
+    const handleKeyPress =  (event:any):void  => {
+        if (event.key === 'Enter') {
+            (async ()=>{
+                await login();
+            })();
+        }
+    };
+
     return (
-        <div className="page-background">
+        <div className="page-background" onKeyDown={handleKeyPress} tabIndex={0} role="button">
             <Container className="login-container">
                 <Grid container spacing={3}>
                     <Grid item xs={12} className="email-box">
                         <img src={logo} alt="Logo" className="logo" />
                         <p className="infoAboutValidation"
-                            style={{ display: inputTextEmail ? 'none' : '' }}
+                            style={{ display: inputTextEmail ? '' : 'none' }}
                         >To nie jest prawidłowy e-mail</p>
                         <TextField
                             className="login-email"
@@ -113,8 +101,8 @@ export const Login: React.FC<LoginProps> = ({ setLoggedIn }) => {
                             onChange={handleEmailChange}
                         />
                         <p className="infoAboutValidation"
-                            style={{ display: inputTextPassword ? 'none' : '' }}
-                        >Hasło musi mieć co najmniej 8 znaków, składać się z dużych i małych liter, cyfr i znaków specjalnych</p>
+                            style={{ display: inputTextPassword ? '' : 'none' }}
+                        >{messages.invalidPasswordFormat.message}</p>
                         <TextField
                             className="login-pass"
                             id="login-pass"
@@ -141,7 +129,10 @@ export const Login: React.FC<LoginProps> = ({ setLoggedIn }) => {
                         />
                     </Grid>
                     <Grid container justifyContent="flex-end">
-                        <Button className="forgot-password-link" color="primary">
+                        <Button
+                            className="forgot-password-link" color="primary"
+                            onClick={() => navigate('/password-reset')}
+                        >
                             Zapomniałeś hasła?
                         </Button>
                     </Grid>
@@ -153,10 +144,12 @@ export const Login: React.FC<LoginProps> = ({ setLoggedIn }) => {
                         alignItems={'baseline'}
                     >
                         <Grid item>
-                            <CircularProgress 
-                                style={{ display: spinner ? '' : 'none' }}/>
-                            <Button className="login-btn"
-                                onClick={login}>
+                            <CircularProgress style={{ display: spinner ? '' : 'none' }}/>
+                            <Button
+                                className="login-btn"
+                                onClick={login}
+                                //   onKeyPress={(event) => handleKeyPress(event)}
+                            >
                                 Zaloguj się
                             </Button>
                         </Grid>

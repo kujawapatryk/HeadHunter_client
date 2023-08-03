@@ -2,7 +2,7 @@
 
 .UserCV__container {
   flex-grow: 1;
-  max-width: 140rem;
+  width: 70%;
 }
 
 .UserCV__text__container {
@@ -13,6 +13,7 @@
 .UserCV__text {
   color: $white;
   font-size: $fs-lg;
+  font-weight: 500;
 }
 
 .UserCV__link__container {

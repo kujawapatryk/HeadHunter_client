@@ -1,39 +1,42 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
+import { UserState } from 'types';
 
-import { AddHr } from './components/AddHr/AddHr';
-import { Admin } from './components/Admin/Admin';
-import { AuthWrapper } from './components/Auth/AuthWrapper';
-import { ChangeDataUser } from './components/ChangeDataUser/ChangeDataUser';
+import { Auth } from './components/Auth/Auth';
 import { Login } from './components/Login/Login';
-import { SendStudentsData } from './components/SendStudentsData/SendStudentsData';
+import { NewPassword } from './components/NewPassword/NewPassword';
+import { PasswordReminder } from './components/PasswordReminder/PasswordReminder';
 import { TestToken } from './components/TestToken/TestToken';
-import { CVEdit } from './views/CVEdit/CVEdit';
+import { UserChange } from './components/UserChange/UserChange';
+import { AdminView } from './views/AdminView/AdminView';
 import { CVView } from './views/CVView/CVView';
 import { ListView } from './views/ListView/ListView';
+import { UserView } from './views/UserView/UserView';
 
 import './index.scss';
 
 export const App = () => {
-    const [isLoggedIn, setLoggedIn] = useState(true); //do zmiany w momencie przekazywania wartości z backend
 
     return (
         <>
-            <Routes>
-                <Route path="/addhr" element={<AddHr />} />
-                <Route path="/admin" element={<Admin />} />
-                <Route path="/send-student" element={<SendStudentsData />} />
-                <Route path="/cv/:studentId" element={<CVView />} />
-                <Route path="/log/:token" element={<TestToken />} />
-                <Route path="/change-data-user" element={<ChangeDataUser />} />
-                <Route>
-                    <Route path="/" element={<Login setLoggedIn={setLoggedIn} />} />
-                </Route>
-                <Route path="/" element={<AuthWrapper isLoggedIn={isLoggedIn} />}>
-                    <Route path="/list/*" element={<ListView />} />
-                    <Route path="/edit" element={<CVEdit />} />
-                </Route>
-            </Routes>
+            <UserChange />
+            <SnackbarProvider maxSnack={5}>
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/new-password/:token/:userId" element={<NewPassword />} />
+                    <Route path="/password-reset" element={<PasswordReminder />}/>
+                    <Route path="/log/:token" element={<TestToken />} />
+
+                    <Route path="/user/*" element={<UserView />} />
+
+                    <Route path="/admin/*" element={<Auth roles={[UserState.admin]}> <AdminView /> </Auth>} />
+
+                    <Route path="/list/*" element={<Auth roles={[UserState.hr]} > <ListView /> </Auth>} />
+                    <Route path="/cv/:studentId" element={<Auth roles={[UserState.hr]} > <CVView /> </Auth>} />
+
+                </Routes>
+            </SnackbarProvider>
         </>
     );
 };

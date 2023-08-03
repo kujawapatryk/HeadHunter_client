@@ -8,6 +8,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 import avatar from '../../../assets/images/avatar-holder.png';
+import { logout } from '../../../utils/logout';
 
 import './Dropdown.scss';
 
@@ -15,6 +16,7 @@ export const Dropdown = () => {
     const navigate = useNavigate();
     const userName = localStorage.getItem('megakname');
     const gitName = localStorage.getItem('gitname');
+    const permission = Number(localStorage.getItem('permission'));
     const linkAvatar = gitName? `https://github.com/${gitName}.png` : avatar;
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -31,12 +33,19 @@ export const Dropdown = () => {
         setAnchorEl(null);
     };
     
-    const logout = () => {
-        localStorage.removeItem('userid');
-        localStorage.removeItem('gitname');
-        localStorage.removeItem('megakname');
-        navigate('/');
-    }
+    // const logout = async () => {
+    //     const res = await fetch(`${API_URL}/auth/logout`, {
+    //         method: 'GET',
+    //         credentials: 'include',
+    //     });
+    //     const { status, message } = await res.json();
+    //     if(status === 'ok'){
+    //         localStorage.clear();
+    //         snackbar(message);
+    //         navigate('/');
+    //     }
+    //
+    // }
 
     return (
         <div>
@@ -66,9 +75,12 @@ export const Dropdown = () => {
                         style: { width: menuWidth },
                     }}
                 >
-                    <MenuItem  className="item" >Konto</MenuItem>
+                    {permission === 2 && (
+                        <MenuItem  className="item" onClick={() => navigate('/user/password')} >Konto</MenuItem>
+                    )}
+
                     <MenuItem className="item" 
-                        onClick={logout}
+                        onClick={ () => logout(navigate)}
                     >Wyloguj</MenuItem>
                 </Menu>
             </div>

@@ -3,11 +3,14 @@
 .Button__input {
   height: 3.9rem;
   background-color: $primary-btn;
+  font-family: $primary-font;
+  font-weight: normal;
   color: $white;
   outline: 0;
   border: 0;
   padding: 0.5rem 1.5rem;
   font-size: $fs-lg;
+  cursor: move;
 }
 
 .Button__input--clickable {

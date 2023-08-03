@@ -1,0 +1,7 @@
+@import '../../../variables';
+@import "../ChangeDataUser";
+
+.container__change-email{
+
+  @extend .change-data-user;
+}

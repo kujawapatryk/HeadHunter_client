@@ -1,0 +1,24 @@
+@import "../../variables";
+
+.window {
+    position: absolute;
+    width: 20rem;
+    height: 20rem;
+    background-color: #ccc;
+    border: 2px solid #999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: move;
+    z-index: 9999;
+}
+
+.user-change___btm{
+    width: 10rem;
+    height: 3rem;
+    margin-bottom: 0.7rem;
+    background: $primary-btn;
+    color: $white;
+
+}

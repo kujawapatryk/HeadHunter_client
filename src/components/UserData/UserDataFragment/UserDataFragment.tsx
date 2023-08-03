@@ -5,14 +5,16 @@ import './UserDataFragment.scss';
 interface Props {
   header: string;
   value: string;
-  showStars?: boolean;
+  showStars?: boolean,
+  type?: boolean,
+  width: string,
 }
-export const UserDataFragment = ({ header, value, showStars = false }: Props) => {
+export const UserDataFragment = ({ header, value, showStars = false, type, width }: Props) => {
 
     const [valueStart, restOfValue] = value.split('/');
     return (
-        <div className="user-data-fragment__container">
-            <h4 className="user-data-fragment__header">{header}</h4>
+        <div className="user-data-fragment__container" style={{ width: `${width}` }}>
+            <h4 className={`user-data-fragment__header ${type && 'user-data-fragment__header-cv'}`}>{header}</h4>
             <div>
                 <h4 className="user-data-fragment__value">
                     {value.includes('/') ? (

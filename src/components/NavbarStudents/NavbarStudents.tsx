@@ -1,54 +1,61 @@
-import React, { KeyboardEvent,useState } from 'react';
+import React, { KeyboardEvent, useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import { PaginationContext } from '../../contexts/pagination.context';
 
 import './NavbarStudents.scss'
 
-export const NavbarStudents = () => {
+export const NavbarStudents = (props:{ data : string[][] }) => {
+    const { pagination, setPagination } = useContext(PaginationContext);
+
+    const navigate = useNavigate();
     const location = useLocation();
-    let initial = 'allStudents';
-    if(location.pathname === '/list/reserved') {
-        initial = 'forInterview'
+
+    const { data } = props;
+    let locationIndex;
+    for (let i = 0; i < data.length; i++) {
+        const array = data[i];
+        const index = array.indexOf(location.pathname);
+
+        if (index !== -1) {
+            locationIndex = i;
+            break;
+        }
     }
 
-    const [activeCategory, setActiveCategory] = useState(initial);
-    const navigate = useNavigate();
+    const [activeCategory, setActiveCategory] = useState(locationIndex);
 
-    const handleClick = (category: string) => {
-        setActiveCategory(category);
-        if (category === 'allStudents') {
-            navigate('/list'); // Przekierowanie na /list
-        } else if (category === 'forInterview') {
-            navigate('/list/reserved'); // Przekierowanie na /list/reserved
-        }
+    const handleClick = (navi: string, index: number) => {
+        setActiveCategory(index);
+        setPagination({
+            ...pagination,
+            page: 0,
+        });
+        navigate(navi);
+
     };
 
-    const handleKeyPress = (event: KeyboardEvent<HTMLButtonElement>, category: string) => {
+    const handleKeyPress = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
         if (event.key === 'Enter' || event.key === ' ') {
-            setActiveCategory(category);
+            setActiveCategory(index);
         }
     };
 
     return (
         <div className="navbar-wrapper">
             <ul className="students-availability">
-                <li>
-                    <button className={activeCategory === 'allStudents' ? 'active' : ''}
-                        onClick={() => handleClick('allStudents')}
-                        onKeyDown={(event) => handleKeyPress(event, 'allStudents')}
-                        aria-pressed={activeCategory === 'allStudents'}
-                    >
-            Dostępni kursanci
-                    </button>
-                </li>
-                <li>
-                    <button className={activeCategory === 'forInterview' ? 'active' : ''}
-                        onClick={() => handleClick('forInterview')}
-                        onKeyDown={(event) => handleKeyPress(event, 'forInterview')}
-                        aria-pressed={activeCategory === 'forInterview'}
-                    >
-            Do rozmowy
-                    </button>
-                </li>
+
+                {data.map((item, index) => (
+                    <li key={index}>
+                        <button className={activeCategory === index ? 'active' : ''}
+                            onClick={() => handleClick(data[index][1],index)}
+                            onKeyDown={(event) => handleKeyPress(event, index)}
+                            // aria-pressed={activeCategory === 'forInterview'}
+                        >
+                            {data[index][0]}
+                        </button>
+                    </li>
+                ))}
             </ul>
         </div>
     )

@@ -20,7 +20,9 @@ import {
 import { FilterCon } from 'types';
 
 import { FilterContext } from '../../../contexts/filter.context';
-import { initialStateFilter } from '../../utils/initialState.filter';
+import { PaginationContext } from '../../../contexts/pagination.context';
+import { initialStateFilter } from '../../../utils/initialState.filter';
+import { month } from '../../../utils/month';
 
 import './FilterWindow.scss';
 
@@ -32,9 +34,9 @@ export const FilterWindow = (props:any) => {
 
     const { filterCon,setFilterCon } = useContext(FilterContext)
     const [filters, setFilters] = useState<FilterState>(filterCon);
+    const { pagination, setPagination } = useContext(PaginationContext);
 
     const title= [['Ocena przejścia kursu','courseCompletion'],['Ocena aktywności i zaangażowania na kursie','courseEngagement'], ['Ocena kodu w projekcie własnym','projectDegree'], ['Ocena pracy w zespole w Scrum','teamProjectDegree']];
-    const months: string[] = ['miesiąc', 'miesiące', 'miesięcy'];
 
     const filtersChange = ( stateName: string,  substateName:string ,value?: string | number | undefined| null| boolean) => {
         if (substateName !== '') {
@@ -54,16 +56,7 @@ export const FilterWindow = (props:any) => {
     };
 
     const monthList: string[] = Array.from({ length: 31 }, (_, i) => {
-        const month: string = i  + ' ' + months[2];
-        if (i === 1) {
-            return month.replace(months[2], months[0]);
-        } else if(i>=12 && i<=16){
-            return month;
-        }else if ( i === 1 || i === 2 || i === 3 || i % 10 === 2 || i % 10 === 3 || i % 10 === 4) {
-            return month.replace(months[2], months[1]);
-        } else {
-            return month;
-        }
+        return month(i);
     });
 
     const clear = () =>{
@@ -73,6 +66,10 @@ export const FilterWindow = (props:any) => {
 
     const lookState = ()=>{
         setFilterCon(filters);
+        setPagination({
+            ...pagination,
+            page: 0,
+        })
         props.handleClose();
     }
 

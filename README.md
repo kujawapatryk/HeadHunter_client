@@ -32,7 +32,7 @@ Preview on Vercel: https://headhunter.vercel.app
 
 BE on Railway: https://headhunter.up.railway.app
 
-Test path to be: https://headhunter.up.railway.app/student/test
+UserChange path to be: https://headhunter.up.railway.app/student/test
 
 <br/>
 

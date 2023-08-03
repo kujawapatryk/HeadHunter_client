@@ -5,33 +5,50 @@
   @extend .shared-user-data;
 
 
-.reserved-user-data__nav {
+  .reserved-user-data__nav {
+    @extend .shared-user-data-nav;
 
+    .date-and-img{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      width: 20rem;
 
-  .date-and-img{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    width: 20rem;
-
-    .reservation-date{
-      font-size: $fs-lg;
-
-      .bold {
-        font-weight: bold;
+      .reservation-date{
+        font-size: $fs-sm;
+        margin-left: 2rem;
+        .date {
+          font-size: $fs-lg;
+          font-weight: bold;
+        }
       }
+
+      img{
+        max-height: 4.5rem;
+        max-width: 4.5rem;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 50%;
+      }
+
     }
 
-    img {
-      height: 100%;
+    h4{
+      font-size: $fs-xl;
+      display: inline-block;
+
+    }
+
+    .user-container{
+      display: flex;
+      align-items: center;
     }
 
   }
-  @extend .shared-user-data-nav;
-}
 
-.user-data__fragments {
-    @extend .shared-user-data-fragment;
-}
+  .user-data__fragments {
+        @extend .shared-user-data-fragment;
+  }
 }

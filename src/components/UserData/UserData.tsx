@@ -5,8 +5,10 @@ import { ReservedStudent, StudentProps, UpdateAction } from 'types';
 import { API_URL } from '../../config/apiUrl';
 import { FilterContext } from '../../contexts/filter.context';
 import { PaginationContext } from '../../contexts/pagination.context';
-import { filterQuery } from '../utils/filterQuery';
-import { fragmentValues } from '../utils/fragmentValues';
+import { changeStudentStatus } from '../../utils/changeStudentStatust';
+import { filterQuery } from '../../utils/filterQuery';
+import { fragmentValues } from '../../utils/fragmentValues';
+import { Btn } from '../Btn/Btn';
 
 import { UserDataFragment } from './UserDataFragment/UserDataFragment';
 
@@ -19,23 +21,11 @@ export const UserData = () => {
     const [studentData, setStudentData] = useState<StudentProps[]>([]);
     const { pagination, setPagination } = useContext(PaginationContext);
 
-    const hrId = localStorage.getItem('userid');
-
     const changeStatus = async (studentId: string, index: number) => {
         try {
-            const res = await fetch(`${API_URL}/student/status`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    action: UpdateAction.reserve,
-                    studentId,
-                    hrId,
-                }),
-            });
-            const data = await res.json();
-            console.log(data.message);
+
+            await changeStudentStatus(studentId,UpdateAction.reserve)
+
         } finally {
             setStudentData((studentData) => {
                 return studentData.filter((_, i) => i !== index);
@@ -59,14 +49,14 @@ export const UserData = () => {
     };
 
     useEffect(() => {
-        const filtersParams = new URLSearchParams(filterQuery(filterCon,pagination));
+        const filtersParams = new URLSearchParams(filterQuery(filterCon,pagination,'all'));
 
         (async () => {
-            const res = await fetch(`${API_URL}/student/all?${filtersParams}`, {
+            const res = await fetch(`${API_URL}/student/students?${filtersParams}`, {
                 method: 'GET',
+                credentials: 'include',
             });
             const { data,allRecords }: StudentResults = await res.json();
-
             const student = fragmentValues(data);
             setStudentData(student);
 
@@ -77,6 +67,7 @@ export const UserData = () => {
         })();
     }, [pagination.page, filterCon]);
 
+    const dateFragmentWidth = ['8%','10%','8%','8%','10%','10%','10%','12%','12%','12%'];
     return (
         <>
             {studentData &&
@@ -85,11 +76,11 @@ export const UserData = () => {
                 <div className="user-data__nav">
                     <h4>{item.name}</h4>
                     <div className="input-container">
-                        <input type="button" value="Zarezerwuj rozmowę" onClick={() => changeStatus(item.id, index)} />
+                        <Btn value="Zarezerwuj rozmowę" onClick={() => changeStatus(item.id, index)} />
                         <IoIosArrowDown
                             size={30}
                             fill="#666666"
-                            className={`${item.open && 'user-data__nav__svg--rotate'}`}
+                            className={`${item.open ? 'user-data__nav__svg--rotate' : 'user-data__nav__svg'}`}
                             onClick={() => {
                                 isOpen(index);
                             }}
@@ -99,7 +90,7 @@ export const UserData = () => {
                 {item.open && (
                     <div className="user-data__fragments">
                         {item.fragmentsValues.map(({ header, value }, id) => {
-                            return <UserDataFragment header={header} value={value} key={id} />;
+                            return <UserDataFragment header={header} value={value} key={id} width={dateFragmentWidth[id]} />;
                         })}
                     </div>
                 )}
