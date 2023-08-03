@@ -8,8 +8,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 import avatar from '../../../assets/images/avatar-holder.png';
-import { API_URL } from '../../../config/apiUrl';
-import { snackbar } from '../../../utils/snackbar';
+import { logout } from '../../../utils/logout';
 
 import './Dropdown.scss';
 
@@ -34,19 +33,19 @@ export const Dropdown = () => {
         setAnchorEl(null);
     };
     
-    const logout = async () => {
-        const res = await fetch(`${API_URL}/auth/logout`, {
-            method: 'GET',
-            credentials: 'include',
-        });
-        const { status, message } = await res.json();
-        if(status === 'ok'){
-            localStorage.clear();
-            snackbar(message);
-            navigate('/');
-        }
-
-    }
+    // const logout = async () => {
+    //     const res = await fetch(`${API_URL}/auth/logout`, {
+    //         method: 'GET',
+    //         credentials: 'include',
+    //     });
+    //     const { status, message } = await res.json();
+    //     if(status === 'ok'){
+    //         localStorage.clear();
+    //         snackbar(message);
+    //         navigate('/');
+    //     }
+    //
+    // }
 
     return (
         <div>
@@ -81,7 +80,7 @@ export const Dropdown = () => {
                     )}
 
                     <MenuItem className="item" 
-                        onClick={logout}
+                        onClick={ () => logout(navigate)}
                     >Wyloguj</MenuItem>
                 </Menu>
             </div>
