@@ -15,7 +15,7 @@ MegaK students can utilize the platform to showcase their skills in a standardiz
 </p>
 
 ## Video
-
+![screenshot](https://github.com/kujawapatryk/HeadHunter_server/blob/main/demo/headhunter.gif?raw=true)
 
 ## Live demo [HERE](https://headhunter.heyweb.pl/)
 
