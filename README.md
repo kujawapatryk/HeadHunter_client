@@ -1,76 +1,66 @@
-# HeadHunter frontend
 
-![logo](https://github.com/git-asia/HeadHunter_client/assets/94705253/61c57a42-0b44-424a-af6a-f2387b9f99d9)
+##  HeadHunter frontend
+HeadHunter - A platform dedicated exclusively to students of the MegaK course, enabling easy connection between HR departments of companies, including headhunters, and individuals seeking employment in the IT industry.
+
+MegaK students can utilize the platform to showcase their skills in a standardized manner. Recruiting personnel can effortlessly find suitable job candidates, conduct interviews, and offer cooperation. The platform is not intended to directly compete with job portals, but rather aims to enrich the market with a special offering for MegaK students.
 
 
-## Business Objective of the application
+<p align="center">
+  <a href="#headhunter-frontend">HeadHunter</a> •
+  <a href="#video">Video</a> •
+  <a href="#live-demo-here">Live demo</a> •
+  <a href="#languages-and-tools">Languages and Tools</a> •
+  <a href="#back-end-repository">Back-End Repository</a> •
+  <a href="#how-to-use">How To Use</a> 
+</p>
 
-The primary objective of this application is to facilitate seamless connections between HR professionals, particularly headhunters, and aspiring IT professionals seeking job opportunities.
+## Video
 
-Key Features:
-1. Empowering Mega K Trainees: The application will provide a unified platform for Mega K trainees to effectively showcase their skills and abilities.
 
-2. Streamlined Candidate Selection: HR professionals will benefit from the application's intuitive interface, enabling them to effortlessly identify and evaluate suitable candidates, conduct interviews, and extend collaboration offers.
+## Live demo [HERE](https://headhunter.heyweb.pl/)
 
-3. Efficient Database Management: The application will offer an administrator the necessary tools to efficiently manage access and permissions for the trainee database.
+[headhunter.heyweb.pl](https://headhunter.heyweb.pl/)
 
-4. Complementary Market Presence: Rather than directly competing with existing job portals, our product aims to augment the job market by offering unique value propositions, with a particular focus on serving the needs of Mega K trainees.
+Login credentials:
 
-By harmonizing the HR and IT job-seeking landscape, our application strives to bridge the gap between talent and opportunities, fostering meaningful collaborations and driving mutual success.
+-   Admin:
+    -   **email:**  `lorem@wp.pl`
+    -   **password:**  `Test123@`
+-   HeadHunter:
+    -   **email:**  `ania@wp.pl`
+    -   **password:**  `Test123@`
+-   Student:
+    -   **email:**  `wojtek@wp.pl`
+    -   **password:**  `Test123@`
 
-<br/>
+## Languages and Tools
 
-## Project Status
+<p align="left"> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://jestjs.io" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/jestjsio/jestjsio-icon.svg" alt="jest" width="40" height="40"/> </a> <a href="https://mariadb.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/mariadb/mariadb-icon.svg" alt="mariadb" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> </p>
 
-Please note that the application is currently in an ongoing development phase. Our dedicated team is committed to further refining and enhancing the application to ensure it fulfills its intended objectives. We remain steadfast in our pursuit of delivering a comprehensive and top-quality solution that effectively connects HR professionals and IT job seekers. Continual improvements and updates are on the horizon as we strive to provide an exceptional user experience and meet the evolving needs of our valued users.
 
-<br/>
+## Back-End Repository
 
-## Deployment
+[kujawapatryk/HeadHunter_server](https://github.com/kujawapatryk/HeadHunter_server)
 
-Preview on Vercel: https://headhunter.vercel.app
+## How To Use
 
-BE on Railway: https://headhunter.up.railway.app
+This repository contains the front-end part of the application.
+The back-end part is located at  [https://github.com/perlus3/HeadHunterBE](https://github.com/perlus3/HeadHunterBE)
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
-UserChange path to be: https://headhunter.up.railway.app/student/test
+```bash
+# Clone this repository
+$ git clone https://github.com/kujawapatryk/HeadHunter_client
 
-<br/>
+# Install dependencies
+$ yarn install
 
-## :rocket: How to start
-
-### Instaling dependencies
-
-```
-yarn install
-```
-
-### Starting in dev mode
-
-```
-yarn dev
-```
-
-### Building aplication
-
-```
-yarn build
-```
-
-### Linting
-
-#### regular
-
-```
-yarn lint
+# Run the app
+$ yarn start
 ```
 
-#### with auto-fix
+[Database structure](https://github.com/kujawapatryk/HeadHunter_server/blob/main/HeadHunterStructure.sql)
 
-```
-yarn lint:fix
-```
 
-## Made with:
 
-<a href='https://vitejs.dev/' target="_blank"><img alt='Vite' src='https://img.shields.io/badge/VITE-100000?style=for-the-badge&logo=Vite&logoColor=FFEE00&labelColor=FF0099&color=black'/></a>
-<a href='https://react.dev/' target="_blank"><img alt='React' src='https://img.shields.io/badge/React-100000?style=for-the-badge&logo=React&logoColor=00F7F7&labelColor=000000&color=00AAE7'/></a>
+
