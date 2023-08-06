@@ -45,7 +45,7 @@ Login credentials:
 ## How To Use
 
 This repository contains the front-end part of the application.
-The back-end part is located at  [https://github.com/perlus3/HeadHunterBE](https://github.com/perlus3/HeadHunterBE)
+The back-end part is located at  [kujawapatryk/HeadHunter_server](https://github.com/kujawapatryk/HeadHunter_server)
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
 ```bash
